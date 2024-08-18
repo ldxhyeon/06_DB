@@ -732,6 +732,7 @@ WHERE
  * 4)	ORDER BY 	 (조회된 결과를 정렬할거야)
  * 		컬럼명 | 별칭 | 컬럼순서(숫자)
  * 		[ASC / DESC] (오름차순 / 내림차순)
+ * 
  * 		[NULLS FIRST / NULL LAST] (NULL 위치 지정)
  * 
  * 
