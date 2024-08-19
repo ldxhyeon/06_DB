@@ -471,6 +471,7 @@ FROM
 -- <NULL 처리 연산> : IS NULL / IS NOT NULL
 
 
+
 -- <NULL 처리 함수>
 -- NVL(컬럼명, 컬럼 값이 NULL일 경우 변경할 값)
 
