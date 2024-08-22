@@ -225,10 +225,10 @@ CREATE TABLE USER_USED_UK(
     
     -- USER_ID VARCHAR2(20) UNIQUE, -- 컬럼 레벨 제약 조건(제약 조건명 X) 
     
-    USER_ID VARCHAR2(20) CONSTRAINT USER_ID_U UNIQUE, -- 컬럼 레벨 제약 조건(제약 조건명 o)
-    											-- CONSTRAINT 제약조건명 제약조건 종류
-    											--> 해당 컬럼에 "USER_ID_U" 라는 이름이
-    											-- UNIQUE 제약조건을 생성(설정)
+    USER_ID VARCHAR2(20) CONSTRAINT USER_ID_U UNIQUE,  -- 컬럼 레벨 제약 조건(제약 조건명 o)
+    				 --  CONSTRAINT 제약조건명  제약조건종류
+    				  --> 해당 컬럼에 "USER_ID_U" 라는 이름의
+    				  --   UNIQUE 제약조건을 생성(설정)
     
     USER_PWD VARCHAR2(30) ,
     USER_NAME VARCHAR2(30), -- 테이블 레벨로 제약조건 설정하기
@@ -236,13 +236,12 @@ CREATE TABLE USER_USED_UK(
     PHONE VARCHAR2(30),
     EMAIL VARCHAR2(50),
     
-		/* 테이블 레벨 : 테이블 생성 구문에서 컬럼 정의가 끝난 이후 부분 
-		 * - 제약조건종류(커럼) : 어떤 컬럼에 제약조건을 설정할지 작성
-		 * */  
+    /* 테이블 레벨 : 테이블 생성 구문에서 컬럼 정의가 끝난 이후 부분 
+     *  - 제약조건종류(컬럼) : 어떤 컬럼에 제약조건을 설정할지 작성
+     * */
     
-    -- UNIQUE(USER_NAME) -- 테이블 레벨 제약 조건(제약조건명 X)
-    CONSTRAINT USER_NAME_U UNIQUE(USER_NAME) -- 테이블 레벨 제약 조건(제약조건명 O)
-    
+--	UNIQUE(USER_NAME) -- 테이블 레벨 제약 조건(제약 조건명 X)
+    CONSTRAINT USER_NAME_U UNIQUE(USER_NAME) -- 테이블 레벨 제약 조건(제약 조건명 O)
 );
 
 
@@ -268,7 +267,7 @@ INSERT INTO USER_USED_UK
 VALUES(1, NULL, 'pass01', '나길동', '남', '010-1234-5678', 'hong123@kh.or.kr');
 --> 아이디에 NULL 값 중복 삽입 가능.
 
-SELECT  * FROM USER_USED_UK; 
+SELECT  * FROM USER_USED_UK;
 
 
 -- 오류 보고에 나타나는 SYS_C008635 같은 제약 조건명으로
@@ -365,6 +364,7 @@ VALUES(NULL, 'user03', 'pass03', '유관순', '여', '010-9999-3131', 'yoo123@kh
 
 ---------------------------------------
 
+-- 기본키는 유니크랑 비슷하지만 NULL값을 유니크와 달리 허용하지 않음.
 -- PRIMARY KEY 복합키 (테이블 레벨만 가능)
 CREATE TABLE USER_USED_PK2(
     USER_NO NUMBER,
@@ -374,6 +374,8 @@ CREATE TABLE USER_USED_PK2(
     GENDER VARCHAR2(10),
     PHONE VARCHAR2(30),
     EMAIL VARCHAR2(50),
+    
+    -- 기본키 복합으로 사용하려면 테이블 레벨만 가능!
     CONSTRAINT PK_USERNO_USERID PRIMARY KEY(USER_NO, USER_ID) -- 복합키
 );
 
@@ -531,7 +533,7 @@ INSERT INTO USER_GRADE2 VALUES (30, '특별회원');
 SELECT * FROM USER_GRADE2;
 COMMIT;
 
--- ON DELETE SET NUL 삭제 옵션이 적용된 테이블 생성
+-- ON DELETE SET NULL 삭제 옵션이 적용된 테이블 생성
 CREATE TABLE USER_USED_FK2(
   USER_NO NUMBER PRIMARY KEY,
   USER_ID VARCHAR2(20) UNIQUE,

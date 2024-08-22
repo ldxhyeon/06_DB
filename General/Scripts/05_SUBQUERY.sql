@@ -40,7 +40,22 @@ WHERE
 	DEPT_CODE = (SELECT DEPT_CODE
 							 FROM 	EMPLOYEE
 							 WHERE 	EMP_NAME = '노옹철');
-                   
+							
+							
+SELECT
+	EMP_NAME,
+	DEPT_CODE
+FROM 
+	EMPLOYEE 
+WHERE 
+  DEPT_CODE = (
+  							SELECT 
+  								DEPT_CODE
+  							FROM 
+  								EMPLOYEE 
+  							WHERE
+  								EMP_NAME = '노옹철'
+  );         
                    
                    
 -- 서브쿼리 예시 2.
@@ -377,6 +392,15 @@ WHERE
 				SELECT DISTINCT MANAGER_ID
 				FROM EMPLOYEE
 				WHERE MANAGER_ID IS NOT NULL);
+			
+			
+SELECT 
+	JOB_NAME
+FROM
+	EMPLOYEE
+JOIN
+	JOB USING(JOB_CODE);
+	
 			
 			
 			

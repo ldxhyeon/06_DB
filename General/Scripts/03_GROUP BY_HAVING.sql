@@ -47,6 +47,18 @@ ORDER BY
 	DEPT_CODE ASC;
 
 
+	
+SELECT
+	DEPT_CODE,
+	SUM(SALARY),
+	FLOOR(AVG(SALARY)), 
+	COUNT(*) 
+FROM
+	EMPLOYEE
+GROUP BY
+	DEPT_CODE
+ORDER BY
+	DEPT_CODE ASC;
 
 -- EMPLOYEE 테이블에서 
 -- 부서코드와 부서별 보너스를 받는 사원의 수를 조회하고 
@@ -62,6 +74,21 @@ GROUP BY
 	DEPT_CODE						-- 3.WHERE 결과에서 그룹 구
 ORDER BY
 	DEPT_CODE ASC;			-- 5.조회 결과 정렬
+	
+	
+	
+SELECT
+	DEPT_CODE,
+	COUNT(*) 
+FROM 
+	EMPLOYEE
+WHERE 
+	BONUS IS NOT NULL
+GROUP BY
+	DEPT_CODE
+ORDER BY 
+	1;
+	
 
 
 
@@ -80,6 +107,22 @@ GROUP BY
 ORDER BY
 	"인원수" DESC;
 
+
+
+-- EMPLOYEE 테이블에서
+-- 성별과 성별 별 급여 평균(정수처리), 급여 합계, 인원 수 조회하고
+-- 인원수로 내림차순 정렬
+
+SELECT 
+	DECODE(SUBSTR(EMP_NO, 8, 1),'1', '남', '2', '여') 성별,
+	FLOOR(AVG(SALARY)), 
+	SUM(SALARY),
+	COUNT(*) 
+FROM
+	EMPLOYEE 
+GROUP BY 
+	DECODE(SUBSTR(EMP_NO, 8, 1),'1', '남', '2', '여');
+	
 
 -- * WHERE절 GROUP BY절을 혼합하여 사용
 --> WHERE절은 각 컬럼 값에 대한 조건 (SELECT문 해석 순서를 잘 기억하는 것이 중요!!)
@@ -108,6 +151,17 @@ WHERE
 GROUP BY 
 	JOB_CODE;
 
+SELECT
+	JOB_CODE,
+	SUM(SALARY) 
+FROM 
+	EMPLOYEE
+WHERE 	
+	EXTRACT(YEAR FROM HIRE_DATE) >= 2010
+GROUP BY
+	JOB_CODE;
+
+
 
 
 -- * 여러 컬럼을 묶어서 그룹으로 지정 가능
@@ -134,6 +188,30 @@ ORDER BY
 	DEPT_CODE ASC;
 
 
+-- EMPLOYEE 테이블에서 부서 별로 같은 직급인 사원의 급여 합계를 조회하고
+-- 부서 코드 오름차순으로 정렬
+SELECT 
+	DEPT_CODE, 
+	JOB_CODE,	
+	SUM(SALARY),
+	COUNT(*) 
+FROM 
+	EMPLOYEE
+WHERE JOB_CODE IN (
+    SELECT JOB_CODE
+    FROM EMPLOYEE
+    GROUP BY JOB_CODE
+    HAVING COUNT(*) > 1
+)
+GROUP BY 
+	DEPT_CODE,
+	JOB_CODE
+HAVING COUNT(*) > 1
+ORDER BY
+ 1;
+
+
+
 -- EMPLOYEE 테이블에서 부서 별로 급여 등급이 같은 직원의 수를 조회하고
 -- 부서코드, 급여 등급 오름차순으로 정렬
 SELECT
@@ -145,7 +223,10 @@ FROM
 GROUP BY 
 	DEPT_CODE, SAL_LEVEL
 ORDER BY
-	DEPT_CODE ASC, SAL_LEVEL ASC;
+	DEPT_CODE ASC, 
+	SAL_LEVEL ASC;
+
+
 
 
 
