@@ -164,7 +164,7 @@ SELECT * FROM "MEMBER";
     
     제약조건 종류
     PRIMARY KEY, NOT NULL, UNIQUE, CHECK, FOREIGN KEY.
-    
+
     
 */
 
