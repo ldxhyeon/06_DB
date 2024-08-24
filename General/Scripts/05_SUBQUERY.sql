@@ -1489,7 +1489,6 @@ WHERE
 	
 	
 	
--- 여기까지 복습 완료!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	SELECT
 	EMP_ID,
 	EMP_NAME,
@@ -1549,13 +1548,67 @@ WHERE
 	
 -- 4. 2010년도에 입사한 사원과 부서와 직급이 같은 사원을 조회하시오
 -- 사번, 이름, 부서코드, 직급코드, 고용일
-	
+SELECT 
+	EMP_ID,
+	EMP_NAME,
+	DEPT_CODE,
+	JOB_CODE,
+	HIRE_DATE
+FROM 
+	EMPLOYEE
+WHERE 
+	(DEPT_CODE,JOB_CODE) = (
+		SELECT 
+			DEPT_CODE,
+			JOB_CODE
+		FROM 
+			EMPLOYEE	
+		WHERE
+			EXTRACT(YEAR FROM HIRE_DATE) = 2010
+	); 
    
 
 
 -- 5. 87년생 여자 사원과 동일한 부서이면서 동일한 사수를 가지고 있는 사원을 조회하시오
--- 사번, 이름, 부서코드, 사수번호, 주민번호, 고용일
+-- 사번, 이름, 부서코드, 직급코드, 주민번호, 고용일
+SELECT
+	EMP_ID,
+	EMP_NAME,
+	DEPT_CODE,
+	JOB_CODE,
+	EMP_NO,
+	HIRE_DATE
+FROM 
+	EMPLOYEE 
+WHERE
+	(DEPT_CODE,JOB_CODE) = (
+		SELECT
+			DEPT_CODE,
+			JOB_CODE
+		FROM 
+			EMPLOYEE 
+		WHERE 
+			SUBSTR(EMP_NO, 1, 2) = '87'
+			AND
+			SUBSTR(EMP_NO, 8, 1) IN ('2', '4')
+	);
 
+
+ SELECT 
+	EMP_ID, 
+	EMP_NAME, 
+	DEPT_CODE, 
+	JOB_CODE, 
+	EMP_NO,
+	HIRE_DATE
+FROM EMPLOYEE      
+WHERE (DEPT_CODE, MANAGER_ID) = (
+	SELECT DEPT_CODE, MANAGER_ID
+	FROM EMPLOYEE
+	WHERE EMP_NO LIKE '87%'
+	AND   SUBSTR(EMP_NO,8,1) = '2'
+);
+	
 
 -- 6. 부서별 입사일이 가장 빠른 사원의
 -- 사번, 이름, 부서명(NULL이면 '소속없음'), 직급명, 입사일을 조회하고
@@ -1615,6 +1668,47 @@ WHERE
 ORDER BY 
 
 	HIRE_DATE ASC;
+
+
+
+
+-- 6. 부서별 입사일이 가장 빠른 사원의
+-- 사번, 이름, 부서명(NULL이면 '소속없음'), 직급명, 입사일을 조회하고
+-- 입사일이 빠른 순으로 조회하시오
+-- 단, 퇴사한 직원은 제외하고 조회.
+SELECT 
+	EMP_ID,
+	EMP_NAME,
+	NVL(DEPT_TITLE, '소속없음') DEPT_TITLE,
+	JOB_NAME,
+	HIRE_DATE 
+FROM
+	EMPLOYEE E
+JOIN
+	JOB J ON(J.JOB_CODE = E.JOB_CODE)
+	
+-- NULL 값 반환 받으려면 LEFT JOIN
+LEFT JOIN
+	DEPARTMENT ON(DEPT_ID = DEPT_CODE)
+WHERE 
+	HIRE_DATE IN (
+		SELECT
+			MIN(HIRE_DATE) 
+		FROM 
+			EMPLOYEE "SUB"
+		WHERE 
+			ENT_YN = 'N'
+			AND NVL("SUB".DEPT_CODE,'소속 없음') = NVL(E.DEPT_CODE, '소속 없음')
+	)
+ORDER BY 
+	HIRE_DATE ASC;
+
+
+
+
+
+
+
 
 -- 7. 직급별 나이가 가장 어린 직원의
 -- 사번, 이름, 직급명, 만 나이, 보너스 포함 연봉( (급여 * (1 + 보너스)) * 12)을 조회하고
