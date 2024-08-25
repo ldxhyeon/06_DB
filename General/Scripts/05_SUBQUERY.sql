@@ -1793,28 +1793,6 @@ ORDER BY "만 나이" DESC;
 
 	
 	
--- 7. 직급별 나이가 가장 어린 직원의
--- 사번, 이름, 직급명, 만 나이, 보너스 포함 연봉( (급여 * (1 + 보너스)) * 12)을 조회하고
--- 나이순으로 내림차순 정렬하세요
--- 단 연봉은 \124,800,000 으로 출력되게 하세요. (\ : 원 단위 기호)
-SELECT
-	EMP_ID,
-	EMP_NAME,
-	JOB_NAME,
-    FLOOR(
-        MONTHS_BETWEEN(
-            SYSDATE, 
-            TO_DATE(SUBSTR(EMP_NO, 1, 6), 'YYMMDD')
-        ) / 12
-    ) AS "만 나이",
-   BONUS
-FROM 
-	EMPLOYEE
-JOIN
-	JOB USING(JOB_CODE);
-WHERE 
-
-	
 	
 
 

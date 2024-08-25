@@ -33,7 +33,6 @@ FROM
 ALTER TABLE DEPT_COPY
 ADD CONSTRAINT DEPT_COPY_PK PRIMARY KEY(DEPT_ID);
 
-
 -- DEPT_COPY 테이블의 DEPT_TITLE 컬럼에 UNIQUE 제약조건 추가
 -- (DEPT_COPY_TITLE_U)
 ALTER TABLE DEPT_COPY
@@ -68,6 +67,7 @@ DROP CONSTRAINT LOCATION_ID_CHK;
 -- NOT NULL 제거 시 MODIFY 사용
 ALTER TABLE DEPT_COPY
 MODIFY DEPT_TITLE NULL;
+
 
 ---------------------------------------------------------------------------------
 -- 2. 컬럼 추가/수정/삭제
@@ -123,6 +123,7 @@ MODIFY DEPT_TITLE VARCHAR2(10);
 SELECT
 	DEPT_TITLE,
 	LENGTH(DEPT_TITLE),
+	-- 몇 BYTE인지 조회
 	LENGTHB(DEPT_TITLE)
 FROM
 	DEPT_COPY;
@@ -267,7 +268,6 @@ DROP TABLE TB1;
 
 -- 해결 방법2) CASECAED CONSTRAINTS 옵션 사용하기
 --> 테이블 삭제 시 연결되어있는 FK 제약조건을 같이 삭제 시킴
--- 여기부터 다시 해야함
 DROP TABLE TB1 CASCADE CONSTRAINTS;
 -- TB1 테이블 삭제
 
