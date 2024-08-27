@@ -27,6 +27,7 @@
 			"driver": "oracle_thin",
 			"name": "KH_LDH(KH1234)",
 			"save-password": true,
+			"read-only": true,
 			"configuration": {
 				"host": "localhost",
 				"port": "1521",

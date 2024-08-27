@@ -95,6 +95,7 @@ CREATE TABLE "MEMBER" (
 SELECT * FROM "MEMBER";
 
 
+
 -- 만든 테이블 확인
 
 
@@ -120,6 +121,8 @@ SELECT * FROM "MEMBER";
 -- MEMBER 테이블에 샘플 데이터 삽입
 INSERT INTO "MEMBER"
 VALUES('MEM01', '123ABC', '홍길동', '971213-1411211', CURRENT_DATE);
+
+
 --아이디, 비밀번호, 이름, 주민등록번호, 가입일
 
 COMMIT; --> 트랜잭션 저장 내용 DB 반영
@@ -242,6 +245,7 @@ CREATE TABLE USER_USED_UK(
     
 --	UNIQUE(USER_NAME) -- 테이블 레벨 제약 조건(제약 조건명 X)
     CONSTRAINT USER_NAME_U UNIQUE(USER_NAME) -- 테이블 레벨 제약 조건(제약 조건명 O)
+    
 );
 
 
@@ -479,6 +483,8 @@ VALUES(5, 'user05', 'pass05', '윤봉길', '남', '010-6666-1234', 'yoon123@kh.o
 ---------------------------------------
 
 -- * FOREIGN KEY 삭제 옵션 
+
+
 -- 부모 테이블의 데이터 삭제 시 자식 테이블의 데이터를 
 -- 어떤식으로 처리할 지에 대한 내용을 설정할 수 있다.
 

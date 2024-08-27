@@ -223,7 +223,6 @@ UPDATE
 SET
 	SALARY = (
 		SELECT
-			SALARY
 		FROM
 			EMPLOYEE2
 		WHERE
@@ -280,6 +279,7 @@ WHERE
 	EMP_NAME IN('노옹철', '전형돈', '정중하', '하동운');
 
 
+
 -- 결과 확인
 SELECT
 	EMP_NAME,
@@ -310,7 +310,7 @@ JOIN
 JOIN
 	LOCATION ON(LOCATION_ID = LOCAL_CODE)
 WHERE
-	LOCAL_NAME = '%ASIA%';
+	LOCAL_NAME LIKE '%ASIA%';
 
 -- 2) 아시아 지역 근무 직원 보너스 0.3으로 변경
 UPDATE
