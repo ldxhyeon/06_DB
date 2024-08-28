@@ -21,7 +21,102 @@ INSERT INTO TB_USER
 VALUES(SEQ_USER_NO.NEXTVAL, 'user01', 'pass01', '유저일', DEFAULT );
 INSERT INTO TB_USER 
 VALUES(SEQ_USER_NO.NEXTVAL, 'user02', 'pass02', '유저이', DEFAULT );
+INSERT INTO TB_USER 
+VALUES(SEQ_USER_NO.NEXTVAL, 'user02', 'pass02', '유저이', DEFAULT );
 
-SELECT * FROM TB_USER;
+
+SELECT * FROM TB_USER
+ORDER BY
+5;
+
+
+-- 모든 USER 조회
+SELECT
+	USER_NO,
+	USER_ID,
+	USER_PW,
+	USER_NAME,
+	TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일"')ENROLL_DATE
+FROM
+	TB_USER
+ORDER BY
+	USER_NO ASC;
 
 COMMIT;
+
+-- 검색어가 이름에 포함된 User 조회
+SELECT
+	USER_NO,
+	USER_ID,
+	USER_PW,
+	USER_NAME,
+	TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일"')ENROLL_DATE
+FROM
+	TB_USER
+WHERE
+	USER_NAME LIKE '%' || '이' || '%'
+ORDER BY
+	USER_NO ASC;
+
+
+
+-- USER_NO 를 입력 받아 일치하는 User 삭제(DELETE)
+DELETE
+FROM
+	TB_USER
+WHERE
+	USER_NO = 3;
+-- 일치하는 USER_NO가 있을 경우 : 1행 삭제
+-- 일치하는 USER_NO가 있을 경우 : 0행 삭제
+	
+
+COMMIT;
+
+
+-- ID, PW가 일치하는 회원 조회
+SELECT
+	USER_NO
+FROM
+	TB_USER
+WHERE
+	USER_ID = 'dlehdgus'
+	AND
+	USER_PW = '0712';
+
+
+-- USER_NO(PK)가 일치하는 회원의 이름을 수정
+UPDATE
+	TB_USER
+SET
+	USER_NAME = '이순신 장군'
+WHERE	
+	USER_NO = 4;
+
+
+SELECT * FROM TB_USER
+ORDER BY
+USER_NO;
+ROLLBACK;
+
+
+-- 중복되는 아이디가 있는지 조회
+-- 중복이면 1, 아니면 0
+SELECT COUNT(*)
+FROM
+	TB_USER
+WHERE
+	USER_ID = 'dlehdgus';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
