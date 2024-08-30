@@ -65,7 +65,7 @@ DELETE
 FROM
 	TB_USER
 WHERE
-	USER_NO = 3;
+	USER_NO = 31;
 -- 일치하는 USER_NO가 있을 경우 : 1행 삭제
 -- 일치하는 USER_NO가 있을 경우 : 0행 삭제
 	
@@ -106,8 +106,6 @@ FROM
 	TB_USER
 WHERE
 	USER_ID = 'dlehdgus';
-
-
 
 
 
