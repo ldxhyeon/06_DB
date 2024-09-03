@@ -30,9 +30,7 @@ ORDER BY
 
 
 	
-DELETE
-FROM
-	TD_LIST;
+DROP TABLE TD_LIST;
 
 
 COMMIT;
@@ -40,7 +38,8 @@ COMMIT;
 
 ROLLBACK;
 
-
+-- 기존 시퀀스 삭제
+DROP SEQUENCE SEQ_LIST_NO;
 
 
 
