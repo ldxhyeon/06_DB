@@ -112,7 +112,7 @@ WHERE
 
 
 SELECT * FROM TB_USER
-ORDER BY 5;
+ORDER BY 5;                         
 
 
 
