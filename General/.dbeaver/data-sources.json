@@ -99,7 +99,11 @@
 				"auth-model": "oracle_native"
 			}
 		},
+<<<<<<< HEAD
 		"oracle_thin-191e8b3d862-6a7d3c32683c1e11": {
+=======
+		"oracle_thin-191de7bf8b5-19a399c851d795c8": {
+>>>>>>> e36d5ec738ba6ec2180ba5ffaa945fdb1fa123ce
 			"provider": "oracle",
 			"driver": "oracle_thin",
 			"name": "SPRING_LDH",
@@ -110,7 +114,11 @@
 				"database": "XE",
 				"url": "jdbc:oracle:thin:@//localhost:1521/XE",
 				"configurationType": "MANUAL",
+<<<<<<< HEAD
 				"home": "C:\\app\\user1\\product\\18.0.0\\dbhomeXE",
+=======
+				"home": "C:\\app\\ldh\\product\\18.0.0\\dbhomeXE",
+>>>>>>> e36d5ec738ba6ec2180ba5ffaa945fdb1fa123ce
 				"type": "dev",
 				"closeIdleConnection": true,
 				"provider-properties": {
@@ -118,6 +126,7 @@
 					"@dbeaver-sid-service@": "SERVICE"
 				},
 				"auth-model": "oracle_native"
+<<<<<<< HEAD
 			},
 			"filters": [
 				{
@@ -126,6 +135,9 @@
 					"include": ["KH_LDH"]
 				}
 			]
+=======
+			}
+>>>>>>> e36d5ec738ba6ec2180ba5ffaa945fdb1fa123ce
 		}
 	},
 	"connection-types": {
@@ -133,7 +145,7 @@
 			"name": "Development",
 			"color": "255,255,255",
 			"description": "Regular development database",
-			"auto-commit": false,
+			"auto-commit": true,
 			"confirm-execute": false,
 			"confirm-data-change": false,
 			"smart-commit": false,
