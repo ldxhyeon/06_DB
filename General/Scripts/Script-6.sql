@@ -75,3 +75,7 @@ WHERE
 COMMIT;
 
 SELECT * FROM "MEMBER";
+
+
+
+
