@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 CREATE TABLE CUSTOMER(
 
 CUSTOMER_NO NUMBER PRIMARY KEY,
@@ -20,7 +19,9 @@ SELECT
 	*
 FROM
 	CUSTOMER;
-=======
+
+
+
 /* 관리자 계정(sys) 접속 후 수행 */
 
 /*ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;
@@ -94,4 +95,3 @@ COMMIT;
 
 
 
->>>>>>> e36d5ec738ba6ec2180ba5ffaa945fdb1fa123ce

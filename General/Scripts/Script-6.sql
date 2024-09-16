@@ -13,6 +13,10 @@ ALTER USER SPRING_LDH
 DEFAULT TABLESPACE USERS
 QUOTA 100M ON USERS;
 
+
+/* 기존 사용자 이름 삭제 */
+/*DROP USER SPRING_LDH CASCADE;*/
+
 --------------------------------------------------------------------
 
 /* SPRING 계정 접속 후 테이블, 시퀀스 생성 */
@@ -62,7 +66,7 @@ VALUES(SEQ_MEMBER_NO.NEXTVAL, 'member01@kh.or.kr', 'pass01!',
 	  
 COMMIT;
 
-SELECT * FROM "MEMBER";
+SELECT * FROM "MEMBER"; 
 
 
 -- 샘플 데이터 비밀번호 암호화 적용

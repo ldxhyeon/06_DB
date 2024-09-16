@@ -28,6 +28,55 @@
 					"include": ["KH_LDH"]
 				}
 			]
+		},
+		"oracle_thin-191fa90fc5b-ac43026c20f941a": {
+			"provider": "oracle",
+			"driver": "oracle_thin",
+			"name": "sys 관리자 계정",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "1521",
+				"database": "XE",
+				"url": "jdbc:oracle:thin:@//localhost:1521/XE",
+				"configurationType": "MANUAL",
+				"home": "C:\\app\\ldh\\product\\18.0.0\\dbhomeXE",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"provider-properties": {
+					"@dbeaver-connection-type@": "BASIC",
+					"@dbeaver-sid-service@": "SERVICE"
+				},
+				"auth-model": "oracle_native"
+			}
+		},
+		"oracle_thin-191faa4025f-27c2e7cf49f3e77e": {
+			"provider": "oracle",
+			"driver": "oracle_thin",
+			"name": "SPRING_LDH(SPRING1234)",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "1521",
+				"database": "XE",
+				"url": "jdbc:oracle:thin:@//localhost:1521/XE",
+				"configurationType": "MANUAL",
+				"home": "C:\\app\\ldh\\product\\18.0.0\\dbhomeXE",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"provider-properties": {
+					"@dbeaver-connection-type@": "BASIC",
+					"@dbeaver-sid-service@": "SERVICE"
+				},
+				"auth-model": "oracle_native"
+			},
+			"filters": [
+				{
+					"type": "org.jkiss.dbeaver.ext.oracle.model.OracleSchema",
+					"enabled": true,
+					"include": ["SPRING_LDH"]
+				}
+			]
 		}
 	},
 	"connection-types": {
