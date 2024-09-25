@@ -66,7 +66,13 @@ VALUES(SEQ_MEMBER_NO.NEXTVAL, 'member01@kh.or.kr', 'pass01!',
 	  
 COMMIT;
 
-SELECT * FROM "MEMBER"; 
+SELECT * FROM "MEMBER";
+
+DELETE
+FROM
+	"MEMBER"
+WHERE
+	MEMBER_NO = 9;
 
 
 -- 샘플 데이터 비밀번호 암호화 적용
