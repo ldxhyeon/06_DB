@@ -31,6 +31,8 @@ COMMENT ON COLUMN "MEMBER"."MEMBER_DEL_FL" IS '탈퇴 여부('Y','N')';
 
 COMMENT ON COLUMN "MEMBER"."AUTHORITY" IS '권한(1:일반,2:관리자)';
 
+
+
 CREATE TABLE "BOARD" (
 	"BOARD_NO"	NUMBER		NOT NULL,
 	"BOARD_TITLE"	NVARCHAR2(100)		NOT NULL,
@@ -44,22 +46,16 @@ CREATE TABLE "BOARD" (
 );
 
 COMMENT ON COLUMN "BOARD"."BOARD_NO" IS '게시글 번호(SEQ_BOARD_NO)';
-
 COMMENT ON COLUMN "BOARD"."BOARD_TITLE" IS '게시글 제목';
-
 COMMENT ON COLUMN "BOARD"."BOARD_CONTENT" IS '게시글 내용';
-
 COMMENT ON COLUMN "BOARD"."BOARD_WRITE_DATE" IS '게시글 작성일';
-
 COMMENT ON COLUMN "BOARD"."BOARD_UPDATE_DATE" IS '마지막 수정일';
-
 COMMENT ON COLUMN "BOARD"."READ_COUNT" IS '조회 수';
-
-COMMENT ON COLUMN "BOARD"."BOARD_DEL_FL" IS '삭제 여부(N,Y)';
-
+COMMENT ON COLUMN "BOARD"."BOARD_DEL_FL" IS '삭제 여부(N, Y)';
 COMMENT ON COLUMN "BOARD"."MEMBER_NO" IS '작성자 회원 번호';
-
 COMMENT ON COLUMN "BOARD"."BOARD_CODE" IS '게시판 종류 코드 번호';
+
+
 
 CREATE TABLE "BOARD_IMG" (
 	"IMG_NO"	NUMBER		NOT NULL,
@@ -71,16 +67,12 @@ CREATE TABLE "BOARD_IMG" (
 );
 
 COMMENT ON COLUMN "BOARD_IMG"."IMG_NO" IS '이미지 번호(SEQ_IMG_NO)';
-
 COMMENT ON COLUMN "BOARD_IMG"."IMG_PATH" IS '이미지 요청 경로';
-
 COMMENT ON COLUMN "BOARD_IMG"."IMG_ORIGINAL_NAME" IS '이미지 원본명';
-
 COMMENT ON COLUMN "BOARD_IMG"."IMG_RENAME" IS '이미지 변경명';
-
 COMMENT ON COLUMN "BOARD_IMG"."IMG_ORDER" IS '이미지 순서';
-
 COMMENT ON COLUMN "BOARD_IMG"."BOARD_NO" IS '이미지가 첨부된 게시글 번호';
+
 
 CREATE TABLE "BOARD_TYPE" (
 	"BOARD_CODE"	NUMBER		NOT NULL,
@@ -88,8 +80,8 @@ CREATE TABLE "BOARD_TYPE" (
 );
 
 COMMENT ON COLUMN "BOARD_TYPE"."BOARD_CODE" IS '게시판 종류 코드 번호';
-
 COMMENT ON COLUMN "BOARD_TYPE"."BOARD_NAME" IS '게시판 이름';
+
 
 CREATE TABLE "BOARD_LIKE" (
 	"MEMBER_NO"	NUMBER		NOT NULL,
@@ -97,8 +89,8 @@ CREATE TABLE "BOARD_LIKE" (
 );
 
 COMMENT ON COLUMN "BOARD_LIKE"."MEMBER_NO" IS '좋아요를 누른 회원 번호';
-
 COMMENT ON COLUMN "BOARD_LIKE"."BOARD_NO" IS '좋아요가 눌러진 게시글 번호';
+
 
 CREATE TABLE "COMMENT" (
 	"COMMENT_NO"	NUMBER		NOT NULL,
@@ -107,22 +99,17 @@ CREATE TABLE "COMMENT" (
 	"COMMENT_DEL_FL"	CHAR(1)	DEFAULT 'N'	NOT NULL,
 	"MEMBER_NO"	NUMBER		NOT NULL,
 	"BOARD_NO"	NUMBER		NOT NULL,
-	"BOARD_NO2"	NUMBER		NOT NULL
+	"PARENT_COMMENT_NO"	NUMBER		NULL
 );
 
-COMMENT ON COLUMN "COMMENT"."COMMENT_NO" IS '댓글번호(SEQ_COMMENT_NO)';
-
+COMMENT ON COLUMN "COMMENT"."COMMENT_NO" IS '댓글 번호(SEQ_COMMENT_NO)';
 COMMENT ON COLUMN "COMMENT"."COMMENT_CONTENT" IS '댓글 내용';
-
 COMMENT ON COLUMN "COMMENT"."COMMENT_WRITE_DATE" IS '댓글 작성일';
-
-COMMENT ON COLUMN "COMMENT"."COMMENT_DEL_FL" IS '댓글 삭제 여부(N,Y)';
-
+COMMENT ON COLUMN "COMMENT"."COMMENT_DEL_FL" IS '댓글 삭제 여부(N, Y)';
 COMMENT ON COLUMN "COMMENT"."MEMBER_NO" IS '회원 번호(SEQ_MEMBER_NO)';
-
 COMMENT ON COLUMN "COMMENT"."BOARD_NO" IS '게시글 번호(SEQ_BOARD_NO)';
+COMMENT ON COLUMN "COMMENT"."PARENT_COMMENT_NO" IS '부모 댓글 번호';
 
-COMMENT ON COLUMN "COMMENT"."BOARD_NO2" IS '게시글 번호(SEQ_BOARD_NO)';
 
 
 ALTER TABLE "MEMBER" ADD CONSTRAINT "PK_MEMBER" PRIMARY KEY (
@@ -192,18 +179,18 @@ REFERENCES "MEMBER" (
 	"MEMBER_NO"
 );
 
+ALTER TABLE "COMMENT" ADD CONSTRAINT "FK_BOARD_TO_COMMENT_1" FOREIGN KEY (
+	"BOARD_NO"
+)
+REFERENCES "BOARD" (
+	"BOARD_NO"
+);
+
 ALTER TABLE "COMMENT" ADD CONSTRAINT "FK_COMMENT_TO_COMMENT_1" FOREIGN KEY (
 	"PARENT_COMMENT_NO"
 )
 REFERENCES "COMMENT" (
 	"COMMENT_NO"
-);
-
-ALTER TABLE "COMMENT" ADD CONSTRAINT "FK_BOARD_TO_COMMENT_1" FOREIGN KEY (
-	"BOARD_NO2"
-)
-REFERENCES "BOARD" (
-	"BOARD_NO"
 );
 
 
@@ -213,27 +200,29 @@ ALTER TABLE "BOARD"
 ADD CONSTRAINT "CHK_BOARD_DEL_FL"
 CHECK(BOARD_DEL_FL IN ('Y', 'N'));
 
-/* COMMENT 테이블 BOARD_DEL_FL CHECK 제약 조건 추가 */
+
+/* COMMNET 테이블 BOARD_DEL_FL CHECK 제약 조건 추가*/
 ALTER TABLE "COMMENT"
 ADD CONSTRAINT "CHK_COMMENT_DEL_FL"
-CHECK(COMMENT_DEL_FL IN ('Y','N'));
+CHECK(COMMENT_DEL_FL IN ('Y', 'N'));
 
-<<<<<<< HEAD
-=======
+
+--------------------------------------------------------------------
 /* 게시판 종류 (BOARD_TYPE) 추가 */
 INSERT INTO "BOARD_TYPE" VALUES (1, '공지 사항');
 INSERT INTO "BOARD_TYPE" VALUES (2, '자유 게시판');
 INSERT INTO "BOARD_TYPE" VALUES (3, '정보 게시판');
 COMMIT;
 
-
----------------------------------------------------------------------
+----------------------------------------------------------------
 
 /* 게시글 번호 시퀀스 생성 */
 CREATE SEQUENCE SEQ_BOARD_NO NOCACHE;
+DROP SEQUENCE SEQ_BOARD_NO;
+
 
 /* PL/SQL을 이용해서 BOARD 테이블에 샘플 데이터 삽입 */
-BEGIN
+BEGIN 
 	FOR I IN 1..2000 LOOP
 		INSERT INTO "BOARD"
 		VALUES(
@@ -241,18 +230,20 @@ BEGIN
 			SEQ_BOARD_NO.CURRVAL || '번째 게시글',
 			SEQ_BOARD_NO.CURRVAL || '번째 게시글 내용 입니다',
 			DEFAULT, DEFAULT, DEFAULT, DEFAULT,
-			1, -- 회원 번호
+			1, 
 			CEIL( DBMS_RANDOM.VALUE(0,3) )
 		);
-		
 	END LOOP;
-	
 END;
 
+-- ALT + X로 실행
 
+-- 삽입된 행의 개수 확인
 SELECT COUNT(*) FROM BOARD;
 
+-- 확인되면 COMMIT;
 COMMIT;
+
 
 -- 게시판 종류 별로 샘플 데이터 개수 확인
 SELECT BOARD_CODE, COUNT(*)
@@ -260,10 +251,13 @@ FROM "BOARD"
 GROUP BY BOARD_CODE
 ORDER BY BOARD_CODE ASC;
 
-----------------------------------------------
+
+-----------------------------------------------
 
 /* 댓글 번호 시퀀스 생성 */
 CREATE SEQUENCE SEQ_COMMENT_NO NOCACHE;
+DROP SEQUENCE SEQ_COMMENT_NO;
+
 
 /* 댓글 테이블("COMMENT")에 샘플 데이터 삽입 */
 BEGIN
@@ -273,26 +267,24 @@ BEGIN
 			SEQ_COMMENT_NO.NEXTVAL,
 			SEQ_COMMENT_NO.CURRVAL || '번째 댓글',
 			DEFAULT, DEFAULT,
-			1, -- 회원 번호
-			CEIL (DBMS_RANDOM.VALUE(0,1999)), -- 게시글 번호
-			NULL -- 부모 댓글 번호
+			1, 
+			CEIL (DBMS_RANDOM.VALUE(0, 1999) ),
+			NULL 
 		);
-		
 	END LOOP;
 END;
-
 
 SELECT COUNT(*) FROM "COMMENT";
 COMMIT;
 
-
-SELECT BOARD_NO, COUNT(*)
+-- 게시글 번호별 작성된 댓글 개수 조회
+SELECT BOARD_NO, COUNT(*) 
 FROM "COMMENT"
-GROUP BY BOARD_NO
+GROUP BY BOARD_NO 
 ORDER BY BOARD_NO DESC;
 
 
-------------------------------------------------------------------
+--------------------------------------------------------------
 
 /* 특정 게시판(BOARD_CODE)에
  * 삭제되지 않은 게시글 목록 조회
@@ -321,7 +313,6 @@ ORDER BY BOARD_NO DESC;
 -- 1) 메인 쿼리 1행 해석
 -- 2) 서브 쿼리에서 메인 쿼리 1행 조회 결과를 이용 -> 해석
 -- 3) 다시 메인 쿼리 해석
-
 
 
 SELECT 
@@ -362,8 +353,10 @@ WHERE
 	BOARD_DEL_FL = 'N' -- 삭제 안된 글
 AND   
 	BOARD_CODE = 1     -- 게시판 종류
-ORDER BY
+ORDER BY 
 	RNUM DESC;
+	
+
 
 
 
@@ -387,9 +380,19 @@ VALUES(
 
 COMMIT;
 
+
+
+SELECT COUNT(*)
+  	FROM "BOARD"
+  	WHERE BOARD_CODE = 3
+  	AND BOARD_DEL_FL = 'N';
+
+
 SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL;
 
 
+
+-- ---------------------------------------------------------
 
 -- 이미지 번호 생성용 시퀀스
 CREATE SEQUENCE SEQ_IMG_NO NOCACHE;
@@ -419,50 +422,38 @@ BEGIN
 
 	RETURN IMG_NO;
 END;
+;
+
+
+
+
 
 
 INSERT INTO "BOARD_IMG"
 (
-	SELECT
-		NEXT_IMG_NO(),
+	SELECT NEXT_IMG_NO(),
 		'/images/board/', '원본명','변경명',1,2000
 	FROM DUAL
 	
 	UNION ALL
 	
-	SELECT
-		NEXT_IMG_NO(),
+	SELECT NEXT_IMG_NO(),
+		'/images/board/', '원본명','변경명',1,2000
+	FROM DUAL
+	
+	UNION ALL
+	
+	SELECT NEXT_IMG_NO(),
 		'/images/board/', '원본명','변경명',1,2000
 	FROM DUAL
 );
 
 ROLLBACK;
 
+SELECT * FROM "BOARD"
+ORDER BY BOARD_NO DESC;
 
 
+SELECT * FROM "BOARD_IMG";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> d1e1ce2de15981a9460175298a7aa6db39131742
-
-
-
-
-
-
+COMMIT;
