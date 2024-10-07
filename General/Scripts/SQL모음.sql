@@ -480,17 +480,21 @@ SELECT
 		
 	(SELECT COUNT(*) 
 	 FROM BOARD_LIKE L
-	 WHERE L.BOARD_NO = 2013) AS LIKE_COUNT,
+	 WHERE L.BOARD_NO = 2006) AS LIKE_COUNT,
 	 
 	(SELECT IMG_PATH || IMG_RENAME
 	 FROM BOARD_IMG I
-	 WHERE ) AS THUMBNAIL
+	 WHERE I.BOARD_NO = 2006
+	 AND IMG_ORDER = 0) AS THUMBNAIL
 	
 	
 FROM "BOARD" B
 JOIN "MEMBER" M ON (B.MEMBER_NO = M.MEMBER_NO)
-WHERE BOARD_NO = 2013
+WHERE BOARD_NO = 2006
 AND BOARD_CODE = 1;
+
+
+
 
 ---------------------------------------------------
 
@@ -502,7 +506,7 @@ VALUES(
 	DEFAULT, 
 	DEFAULT,
 	1,  -- 회원 번호
-	2041, -- 게시글 번호 
+	2006, -- 게시글 번호 
 	NULL 
 );
 
@@ -514,7 +518,7 @@ VALUES(
 	DEFAULT, 
 	DEFAULT,
 	1,  -- 회원 번호
-	2041, -- 게시글 번호 
+	2006, -- 게시글 번호 
 	NULL 
 );
 
@@ -525,65 +529,43 @@ VALUES(
 	DEFAULT, 
 	DEFAULT,
 	1,  -- 회원 번호
-	2041, -- 게시글 번호 
+	2006, -- 게시글 번호 
 	NULL 
 );
 
+-- 부모 댓글 1의 자식 댓글
 INSERT INTO "COMMENT"
-VALUES(
-	SEQ_COMMENT_NO.NEXTVAL,
-	'자식 댓글 1-1',
-	DEFAULT, 
-	DEFAULT,
-	1,  -- 회원 번호
-	2041, -- 게시글 번호 
-	3007 
+VALUES( SEQ_COMMENT_NO.NEXTVAL, '자식 댓글 1-1',
+	    DEFAULT,  DEFAULT, 1,  2006, 3003 
 );
 
 INSERT INTO "COMMENT"
-VALUES(
-	SEQ_COMMENT_NO.NEXTVAL,
-	'자식 댓글 1-2',
-	DEFAULT, 
-	DEFAULT,
-	1,  -- 회원 번호
-	2041, -- 게시글 번호 
-	3007 
+VALUES( SEQ_COMMENT_NO.NEXTVAL, '자식 댓글 1-2',
+	    DEFAULT,  DEFAULT, 1,  2006, 3003 
 );
 
 INSERT INTO "COMMENT"
-VALUES(
-	SEQ_COMMENT_NO.NEXTVAL,
-	'자식 댓글 2-2',
-	DEFAULT, 
-	DEFAULT,
-	1,  -- 회원 번호
-	2041, -- 게시글 번호 
-	3007 
+VALUES( SEQ_COMMENT_NO.NEXTVAL, '자식 댓글 2-1',
+	    DEFAULT,  DEFAULT, 1,  2006, 3004 
+);
+
+INSERT INTO "COMMENT"
+VALUES( SEQ_COMMENT_NO.NEXTVAL, '자식 댓글 2-2',
+	    DEFAULT,  DEFAULT, 1,  2006, 3004 
 );
 
 
 INSERT INTO "COMMENT"
-VALUES(
-	SEQ_COMMENT_NO.NEXTVAL,
-	'후손 댓글 1-1-1',
-	DEFAULT, 
-	DEFAULT,
-	1,  -- 회원 번호
-	2041, -- 게시글 번호 
-	3010 
+VALUES( SEQ_COMMENT_NO.NEXTVAL, '후손 댓글 1-1-1',
+	    DEFAULT,  DEFAULT, 1,  2006, 3005 
 );
 
 INSERT INTO "COMMENT"
-VALUES(
-	SEQ_COMMENT_NO.NEXTVAL,
-	'후손 댓글 1-1-2',
-	DEFAULT, 
-	DEFAULT,
-	1,  -- 회원 번호
-	2041, -- 게시글 번호 
-	3010 
+VALUES( SEQ_COMMENT_NO.NEXTVAL, '후손 댓글 1-1-2',
+	    DEFAULT,  DEFAULT, 1,  2006, 3005 
 );
+
+COMMIT;
 
 
 
