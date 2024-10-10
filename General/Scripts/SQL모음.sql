@@ -623,8 +623,10 @@ INSERT INTO "BOARD_TYPE"
 VALUES(4, '테스트');
 
 
-
-
+SELECT
+*
+FROM
+BOARD;
 
 
 
