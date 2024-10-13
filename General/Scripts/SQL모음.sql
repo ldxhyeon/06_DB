@@ -634,7 +634,7 @@ VALUES(4, '테스트');
 SELECT
 *
 FROM
-BOARD;
+BOARD_TYPE;
 
 
 
