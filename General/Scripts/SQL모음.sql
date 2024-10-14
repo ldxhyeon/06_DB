@@ -638,6 +638,28 @@ BOARD_TYPE;
 
 
 
+------------------------------------------------------
+
+/* 검색 조건이 일치하는 게시글 수 조회 */
+SELECT COUNT(*)
+FROM "BOARD"
+JOIN "MEMBER" USING("MEMBER_NO") -- 작성자 검색
+WHERE BOARD_CODE = 1
+AND BOARD_DEL_FL = 'N'
+
+/* 제목 검색인 경우 */
+/*AND BOARD_TITLE LIKE '11' || '콩' || '%';*/
+
+-- 내용 검새인 경우
+/*AND BOARD_CONTENT LIKE '%' || '나' || '%'*/
+
+-- 제목 또는 내용 검색
+AND (BOARD_TITLE LIKE '%' || '콩' || '%'
+OR BOARD_CONTENT LIKE '%' || '콩' || '%');
+
+
+
+
 
 
 
