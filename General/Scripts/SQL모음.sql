@@ -658,6 +658,39 @@ AND (BOARD_TITLE LIKE '%' || '콩' || '%'
 OR BOARD_CONTENT LIKE '%' || '콩' || '%');
 
 
+------------------------------------------------------
+
+/* 현재 게시글이 속해있는 페이지 번호 조회 */
+SELECT RNUM, BOARD_NO, CEIL(RNUM/10) CP
+FROM
+	(SELECT
+		ROW_NUMBER() OVER(ORDER BY BOARD_NO DESC) RNUM,
+		BOARD_NO
+	FROM
+		BOARD
+	JOIN
+		MEMBER USING(MEMBER_NO)
+	WHERE
+		BOARD_CODE = 1
+		AND
+		BOARD_DEL_FL = 'N'
+		AND
+		/*BOARD_TITLE LIKE '%' || '11' || '%')*/
+		/*BOARD_CONTENT LIKE '%' || '11' || '%')*/
+		
+		
+		
+		AND(
+			BOARD_TITLE LIKE '%' || '11' || '%')
+			OR
+			BOARD_CONTENT LIKE '%' || '11' || '%')
+		)
+		
+WHERE BOARD_NO = 2070;
+
+
+
+
 
 
 
