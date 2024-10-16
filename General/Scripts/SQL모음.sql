@@ -582,16 +582,9 @@ WHERE
 /* 특정 게시글의 댓글 목록 조회 + 계층형 쿼리 */
 
 -- LEVEL 컬럼: 현재 계층 레벨 출력
-SELECT 
-	LEVEL,
-	COMMENT_NO,
-	PARENT_COMMENT_NO,
-	COMMENT_CONTENT
-FROM
-	"COMMENT"
-WHERE
-	BOARD_NO = 2041
-
+SELECT LEVEL, COMMENT_NO, PARENT_COMMENT_NO, COMMENT_CONTENT
+FROM "COMMENT"
+WHERE BOARD_NO = 2015
 
 /* 계층형 쿼리 코드 추가 */
 
@@ -663,30 +656,24 @@ OR BOARD_CONTENT LIKE '%' || '콩' || '%');
 /* 현재 게시글이 속해있는 페이지 번호 조회 */
 SELECT RNUM, BOARD_NO, CEIL(RNUM/10) CP
 FROM
-	(SELECT
-		ROW_NUMBER() OVER(ORDER BY BOARD_NO DESC) RNUM,
-		BOARD_NO
-	FROM
-		BOARD
-	JOIN
-		MEMBER USING(MEMBER_NO)
-	WHERE
-		BOARD_CODE = 1
-		AND
-		BOARD_DEL_FL = 'N'
-		AND
-		/*BOARD_TITLE LIKE '%' || '11' || '%')*/
-		/*BOARD_CONTENT LIKE '%' || '11' || '%')*/
-		
-		
-		
-		AND(
-			BOARD_TITLE LIKE '%' || '11' || '%')
-			OR
-			BOARD_CONTENT LIKE '%' || '11' || '%')
-		)
-		
-WHERE BOARD_NO = 2070;
+	(SELECT 
+		ROW_NUMBER() OVER(ORDER BY BOARD_NO DESC) RNUM
+		,BOARD_NO
+	FROM "BOARD"
+	JOIN "MEMBER" USING(MEMBER_NO)
+	WHERE BOARD_CODE = 1
+	AND   BOARD_DEL_FL = 'N'
+	
+	--AND   BOARD_TITLE LIKE '%' || '11' || '%'
+	--AND   BOARD_CONTENT LIKE '%' || '11' || '%'
+--	AND   
+--		(BOARD_TITLE LIKE '%' || '11' || '%'
+--		 OR 
+--		 BOARD_CONTENT LIKE '%' || '11' || '%')
+
+	AND MEMBER_NICKNAME LIKE '%' || '수' || '%'
+	)
+WHERE BOARD_NO = 2007;
 
 
 
