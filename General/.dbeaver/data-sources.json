@@ -99,10 +99,10 @@
 				"auth-model": "oracle_native"
 			}
 		},
-		"oracle_thin-192b7056687-769156370e26f221": {
+		"oracle_thin-192b91d8eaa-46877f7a5f3a65a1": {
 			"provider": "oracle",
 			"driver": "oracle_thin",
-			"name": "PRACTICE_REPET",
+			"name": "REPET_PRACTICE",
 			"save-password": true,
 			"configuration": {
 				"host": "localhost",
@@ -110,7 +110,7 @@
 				"database": "XE",
 				"url": "jdbc:oracle:thin:@//localhost:1521/XE",
 				"configurationType": "MANUAL",
-				"home": "C:\\app\\user1\\product\\18.0.0\\dbhomeXE",
+				"home": "C:\\app\\ldh\\product\\18.0.0\\dbhomeXE",
 				"type": "dev",
 				"closeIdleConnection": true,
 				"provider-properties": {
@@ -134,7 +134,7 @@
 			"name": "Development",
 			"color": "255,255,255",
 			"description": "Regular development database",
-			"auto-commit": false,
+			"auto-commit": true,
 			"confirm-execute": false,
 			"confirm-data-change": false,
 			"smart-commit": false,
