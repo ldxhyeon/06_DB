@@ -28,6 +28,7 @@ COMMENT ON COLUMN "REPORT_BOARD"."PROGRESS_CODE" IS '신고 상태 경과 코드
 
 COMMENT ON COLUMN "REPORT_BOARD"."REPORT_CATEGORY" IS '신고 사유 카테고리 선택형';
 
+
 CREATE TABLE "BOARD_IMG" (
 	"IMG_NO"	NUMBER		NOT NULL,
 	"IMG_PATH"	VARCHAR2(200)		NOT NULL,
@@ -484,6 +485,31 @@ VALUES
 	4, 'ddddd@naver.com', '1234', '개울깅', '서울', 'IMG', DEFAULT, DEFAULT
 );
 
+
+INSERT INTO
+	"MEMBER"
+VALUES
+(
+	SEQ_MEMBER_NO.NEXTVAL, 'ddddd@naver.com', '1234', '개울깅', '서울', 'IMG', DEFAULT, DEFAULT
+);
+
+
+INSERT INTO
+	"MEMBER"
+VALUES
+(
+	SEQ_MEMBER_NO.NEXTVAL, '123123@naver.com', 'sdadas', '양양양', '서울', 'IMG', DEFAULT, DEFAULT
+);
+
+INSERT INTO
+	"MEMBER"
+VALUES
+(
+	SEQ_MEMBER_NO.NEXTVAL, 'zxcmxc@naver.com', 'rkgnc', '갱갱갱', '촌안', 'IMG', DEFAULT, DEFAULT
+);
+
+
+
 --------------------------------------------------------------------------------------
 
 
@@ -503,6 +529,7 @@ VALUES
 (
 	SEQ_BOARD_NO.NEXTVAL, '안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕', '성엽이 바보', DEFAULT, NULL, DEFAULT, DEFAULT, 3, 2
 );
+
 
 INSERT INTO
 	"BOARD"
@@ -552,6 +579,7 @@ VALUES
 	4,3
 );
 ---------------------------------------------------------------------------------------
+
 
 
 
