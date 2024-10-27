@@ -101,29 +101,37 @@ INSERT INTO
 	"BOARD_LIKE"
 VALUES
 (
-	100,6
+	171,3
 );
 
 INSERT INTO
 	"BOARD_LIKE"
 VALUES
 (
-	101,6
+	172,3
 );
 
 INSERT INTO
 	"BOARD_LIKE"
 VALUES
 (
-	102,6
+	173,3
 );
 
 INSERT INTO
 	"BOARD_LIKE"
 VALUES
 (
-	103,6
+	174,3
 );
+
+INSERT INTO
+	"BOARD_LIKE"
+VALUES
+(
+	175,3
+);
+
 ---------------------------------------------------------------------------------------
 
 
