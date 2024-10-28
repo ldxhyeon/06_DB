@@ -14,6 +14,12 @@ GRANT RESOURCE, CONNECT TO REPET;
 ALTER USER REPET DEFAULT TABLESPACE USERS QUOTA 500M ON USERS;
 
 
+CREATE SEQUENCE SEQ_MEMBER_NO NOCACHE;
+
+DROP SEQUENCE SEQ_MEMBER_NO;
+
+
+
 ----------------------------------------- 회원 추가 ------------------------------------------------
 
 INSERT INTO
@@ -47,11 +53,27 @@ VALUES
 	SEQ_MEMBER_NO.NEXTVAL, '123123@naver.com', 'sdadas', '양양양', '서울', 'IMG', DEFAULT, DEFAULT
 );
 
+
+
 INSERT INTO
 	"MEMBER"
 VALUES
 (
-	SEQ_MEMBER_NO.NEXTVAL, 'zxcmxc@naver.com', 'rkgnc', '갱갱갱', '촌안', 'IMG', DEFAULT, DEFAULT
+	SEQ_MEMBER_NO.NEXTVAL, 'sample1@naver.com', '123', '갱갱갱2', '촌안1', NULL, DEFAULT, DEFAULT
+);
+
+INSERT INTO
+	"MEMBER"
+VALUES
+(
+	SEQ_MEMBER_NO.NEXTVAL, 'sample2@naver.com', '123', '갱갱갱1', '촌안3', NULL, DEFAULT, DEFAULT
+);
+
+INSERT INTO
+	"MEMBER"
+VALUES
+(
+	SEQ_MEMBER_NO.NEXTVAL, 'sample3@naver.com', '124', '갱갱갱', '촌안2', NULL, DEFAULT, DEFAULT
 );
 
 
@@ -93,8 +115,8 @@ VALUES
 
 --------------------------------------------------------------------------------------
 
-----------------
--------------------- 게시물 좋아요 샘플 ------------------------------------
+
+------------------------------------ 게시물 좋아요 샘플 ------------------------------------
 
 
 INSERT INTO
@@ -135,7 +157,10 @@ VALUES
 ---------------------------------------------------------------------------------------
 
 
-
+SELECT
+*
+FROM
+BOARD_IMG;
 
 COMMIT;
 ROLLBACK;
@@ -154,12 +179,18 @@ JOIN
 ON 
     BL.BOARD_NO = B.BOARD_NO
 WHERE 
-    BL.MEMBER_NO = 3;
+    BL.MEMBER_NO = 3
+    AND
+    B.BOARD_CODE = 2;
    
  SELECT
  	*
- 	FROM
- 	MEMBER;
+ FROM
+ 		MEMBER;
+ 
+UPDATE "MEMBER"
+SET PROFILE_IMG = NULL;
+
  
  COMMIT;
 
@@ -167,7 +198,10 @@ WHERE
 SELECT
 *
 FROM
-BOARD;
+BOARD
+WHERE
+BOARD_NO = 17
+AND BOARD_CODE = 2;
 
 SELECT
 *
@@ -187,3 +221,11 @@ SELECT
 	*
 FROM
 	"MEMBER";
+
+DELETE
+FROM
+	MEMBER
+WHERE
+MEMBER_NO = 21;
+	
+COMMIT;
