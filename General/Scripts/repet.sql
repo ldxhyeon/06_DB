@@ -248,6 +248,22 @@ SET
 	MEMBER_DEL_FL = 'Y'
 WHERE
 	MEMBER_NO = 28;
+
+		SELECT
+			COUNT(*)
+		FROM
+			BOARD
+		WHERE
+			MEMBER_NO = 22;
+		
+		
+		
+		SELECT
+			*
+		FROM
+			BOARD
+		WHERE
+			MEMBER_NO = 22;
 	
 COMMIT;
 ROLLBACK;
