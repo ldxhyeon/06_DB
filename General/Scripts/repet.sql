@@ -213,7 +213,20 @@ COUNT(*)
 FROM
 BOARD_LIKE
 WHERE
-MEMBER_NO = 3;
+MEMBER_NO = 22;
+
+SELECT
+	        COUNT(*)
+	    FROM
+	        BOARD_LIKE BL
+	    JOIN
+	        BOARD B
+	    ON
+	        BL.BOARD_NO = B.BOARD_NO
+	    WHERE
+	        BL.MEMBER_NO = 22
+	        AND B.BOARD_CODE = 2
+	        AND B.BOARD_DEL_FL = 'N';
 
 
 
