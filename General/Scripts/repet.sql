@@ -179,7 +179,7 @@ JOIN
 ON 
     BL.BOARD_NO = B.BOARD_NO
 WHERE 
-    BL.MEMBER_NO = 3
+    BL.MEMBER_NO =22
     AND
     B.BOARD_CODE = 2;
    
@@ -263,7 +263,55 @@ WHERE
 		FROM
 			BOARD
 		WHERE
-			MEMBER_NO = 22;
+			MEMBER_NO = 22
+			AND
+			BOARD_DEL_FL = 'N';
+		
+		
+		SELECT
+			*
+		FROM
+			BOARD
+		WHERE
+			MEMBER_NO = 22
+			AND
+			BOARD_DEL_FL = 'N';
+		
+		INSERT INTO
+			BOARD_COMMENT
+		VALUES
+		(
+			SEQ_COMMENT_NO.NEXTVAL, '테스트8', DEFAULT, 'N', 1125, 22, 3
+		);
+		
+	SELECT 
+		*
+	FROM 
+		BOARD_COMMENT
+	WHERE 
+		MEMBER_NO = 22
+	  	AND
+	  	COMMENT_DEL_FL = 'N';
 	
+	  
+	  SELECT DISTINCT
+    B.BOARD_NO,
+    B.BOARD_TITLE,
+    B.BOARD_CONTENT,
+    B.BOARD_WRITE_DATE,
+    B.READ_COUNT
+		FROM
+		    BOARD_COMMENT BC
+		JOIN
+		    BOARD B
+		ON
+		    BC.BOARD_NO = B.BOARD_NO
+		WHERE
+		    BC.MEMBER_NO = 22
+		    AND BC.COMMENT_DEL_FL = 'N'  -- 삭제되지 않은 댓글
+		    AND B.BOARD_DEL_FL = 'N'      -- 삭제되지 않은 게시물
+		ORDER BY
+    B.BOARD_WRITE_DATE DESC;
+	  
 COMMIT;
 ROLLBACK;
