@@ -263,27 +263,8 @@ WHERE
 		FROM
 			BOARD
 		WHERE
-<<<<<<< HEAD
 			MEMBER_NO = 22;
 		
-		
-		SELECT
-    B.BOARD_NO, 
-    B.BOARD_TITLE, 
-    B.BOARD_CONTENT, 
-    B.BOARD_WRITE_DATE, 
-    B.READ_COUNT,
-    M.MEMBER_NICKNAME
-FROM 
-    BOARD B
-JOIN 
-    MEMBER M 
-ON 
-    B.MEMBER_NO = M.MEMBER_NO;
-=======
-			MEMBER_NO = 22
-			AND
-			BOARD_DEL_FL = 'N';
 		
 		
 		SELECT
@@ -294,6 +275,7 @@ ON
 			MEMBER_NO = 22
 			AND
 			BOARD_DEL_FL = 'N';
+		
 		
 		INSERT INTO
 			BOARD_COMMENT
@@ -310,27 +292,7 @@ ON
 		MEMBER_NO = 22
 	  	AND
 	  	COMMENT_DEL_FL = 'N';
->>>>>>> d442f12c2f2917cc165418153ddf578db8271683
 	
-	  
-	  SELECT DISTINCT
-    B.BOARD_NO,
-    B.BOARD_TITLE,
-    B.BOARD_CONTENT,
-    B.BOARD_WRITE_DATE,
-    B.READ_COUNT
-		FROM
-		    BOARD_COMMENT BC
-		JOIN
-		    BOARD B
-		ON
-		    BC.BOARD_NO = B.BOARD_NO
-		WHERE
-		    BC.MEMBER_NO = 22
-		    AND BC.COMMENT_DEL_FL = 'N'  -- 삭제되지 않은 댓글
-		    AND B.BOARD_DEL_FL = 'N'      -- 삭제되지 않은 게시물
-		ORDER BY
-    B.BOARD_WRITE_DATE DESC;
    
    SELECT 
    	*
