@@ -312,6 +312,11 @@ WHERE
 		    AND B.BOARD_DEL_FL = 'N'      -- 삭제되지 않은 게시물
 		ORDER BY
     B.BOARD_WRITE_DATE DESC;
+   
+   SELECT 
+   	*
+   FROM
+   	BOARD_TYPE;
 	  
 COMMIT;
 ROLLBACK;
