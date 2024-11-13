@@ -130,7 +130,7 @@
 		"oracle_thin-1932006b7ae-2c0054e7dab2c0c4": {
 			"provider": "oracle",
 			"driver": "oracle_thin",
-			"name": "ORCL",
+			"name": "PLKLJ",
 			"save-password": true,
 			"configuration": {
 				"host": "localhost",
