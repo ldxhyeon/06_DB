@@ -141,7 +141,8 @@ AUCTION;
 SELECT
 *
 FROM
-PIECE;
+PIECE_AUCTION
+ORDER BY 1;
 
 SELECT
 *
@@ -150,10 +151,100 @@ PIECE
 WHERE
 PIECE_STATUS = 'A';
 
-UPDATE
-SET
 
 
+SELECT
+*
+FROM
+ARTIST;
+
+		 SELECT
+	        P.PIECE_NO,
+	        P.PIECE_TITLE,
+	        P.PIECE_RENAME,
+	        P.REG_DATE,
+	        PA.START_DATE
+	    FROM
+	        "PIECE" P
+	    JOIN
+	        "PIECE_AUCTION" PA
+	    ON
+	        P.PIECE_NO = PA.PIECE_NO
+	    WHERE
+	        P.PIECE_STATUS = 'A'
+	    ORDER BY
+	        P.REG_DATE ASC 
+	    FETCH FIRST 3 ROWS ONLY;
+	   
+	   	UPDATE PIECE
+		SET PIECE_STATUS = 'S'
+		WHERE PIECE_NO IN (
+			SELECT PIECE_NO
+			FROM PIECE_AUCTION
+			WHERE START_DATE = TO_DATE(TO_CHAR(CURRENT_DATE, 'YYYYMMDD'), 'YYYYMMDD')
+			);
+
+		
+ SELECT
+        P.PIECE_NO,
+        P.PIECE_TITLE,
+        P.PIECE_TYPE,
+        P.PIECE_RENAME,
+        P.REG_DATE,
+        PA.START_DATE
+    FROM
+        "PIECE" P
+  JOIN
+      "PIECE_AUCTION" PA
+  ON
+      P.PIECE_NO = PA.PIECE_NO
+  WHERE
+      P.PIECE_STATUS = 'A'
+      AND
+      P.PIECE_TYPE = 2
+  ORDER BY
+      P.REG_DATE ASC 
+  FETCH FIRST 3 ROWS ONLY;
+ 
+ 
+  SELECT
+      P.PIECE_NO,
+      P.PIECE_TITLE,
+      P.PIECE_TYPE,
+      P.PIECE_RENAME,
+      P.REG_DATE,
+      PA.START_DATE
+  FROM
+      "PIECE" P
+  JOIN
+      "PIECE_AUCTION" PA
+  ON
+      P.PIECE_NO = PA.PIECE_NO
+  WHERE
+      P.PIECE_STATUS = 'A'
+      AND
+      P.PIECE_TYPE = 2;
+     
+SELECT COUNT(*)
+FROM "WISH"
+WHERE
+ PIECE_NO = 51
+ AND
+ MEMBER_NO = 8;
+
+
+SELECT
+*
+FROM
+WISH;
+	       
+
+SELECT COUNT(*)
+   		FROM "WISH"
+   		WHERE
+   		 PIECE_NO = 51;
+	   
+	       
 
 SELECT
     *
@@ -169,9 +260,50 @@ FETCH FIRST 3 ROWS ONLY;
 SELECT
 	*
 FROM
-	"PIECE"
+	"PIECE";
 WHERE
 	PIECE_NO = 50;
+
+
+	    SELECT 
+	        P.PIECE_NO, 
+	        P.PIECE_TITLE, 
+	        P.PIECE_RENAME, 
+	        PA.START_DATE,
+	        
+	        (SELECT COUNT(*) 
+	         FROM "WISH" 
+	         WHERE PIECE_NO = P.PIECE_NO) AS LIKE_COUNT,
+	        
+	        (SELECT COUNT(*) 
+	         FROM "WISH" 
+	         WHERE PIECE_NO = 51
+	         AND MEMBER_NO = 8) AS LIKE_CHECK
+	
+	    FROM 
+	        "PIECE" P
+	    JOIN 
+	        "PIECE_AUCTION" PA 
+	    ON 
+	        P.PIECE_NO = PA.PIECE_NO
+	    WHERE 
+	        P.PIECE_NO = 51;
+	       
+   	SELECT
+        P.PIECE_NO,
+        P.PIECE_TITLE,
+        P.PIECE_RENAME,
+        PA.START_DATE,
+        (SELECT COUNT(*) FROM "WISH" WHERE PIECE_NO = 51 AND MEMBER_NO = 8) AS LIKE_CHECK
+    FROM
+        "PIECE" P
+    JOIN
+        "PIECE_AUCTION" PA
+    ON
+        P.PIECE_NO = PA.PIECE_NO
+    WHERE
+        P.PIECE_NO = 51;
+       
 
 COMMIT;
 
