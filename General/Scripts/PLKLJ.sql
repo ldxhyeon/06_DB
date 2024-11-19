@@ -289,20 +289,45 @@ WHERE
 	    WHERE 
 	        P.PIECE_NO = 51;
 	       
-   	SELECT
-        P.PIECE_NO,
-        P.PIECE_TITLE,
-        P.PIECE_RENAME,
-        PA.START_DATE,
-        (SELECT COUNT(*) FROM "WISH" WHERE PIECE_NO = 51 AND MEMBER_NO = 8) AS LIKE_CHECK
-    FROM
-        "PIECE" P
-    JOIN
-        "PIECE_AUCTION" PA
-    ON
-        P.PIECE_NO = PA.PIECE_NO
-    WHERE
-        P.PIECE_NO = 51;
+SELECT
+    P.PIECE_NO,
+    P.PIECE_TITLE,
+    P.PIECE_RENAME,
+    PA.START_DATE,
+    (SELECT COUNT(*) FROM "WISH" WHERE PIECE_NO = 51 AND MEMBER_NO = 8) AS LIKE_CHECK,
+    A.ARTIST_NICKNAME
+FROM
+    "PIECE" P
+JOIN
+    "PIECE_AUCTION" PA
+ON
+    P.PIECE_NO = PA.PIECE_NO
+JOIN
+    "ARTIST" A
+ON
+    P.MEMBER_NO = A.MEMBER_NO
+WHERE
+    P.PIECE_NO = 51;
+       
+       
+       
+       
+SELECT
+*
+FROM
+REPORT;
+
+SELECT 
+*
+FROM
+MEMBER;
+
+
+SELECT 
+*
+FROM
+ARTIST;
+
        
 
 COMMIT;
