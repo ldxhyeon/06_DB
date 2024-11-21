@@ -426,11 +426,131 @@ ON
 WHERE
     P.PIECE_NO = 51;
    
+   
+      SELECT MAX(END_PRICE)
+      FROM AUCTION
+      WHERE PIECE_NO = 13;
+     
+     SELECT
+     *
+     FROM
+      PIECE
+     WHERE	
+     	PIECE_NO = 13;
+     
+		SELECT MAX(END_PRICE)
+		FROM AUCTION
+		WHERE PIECE_NO = 12;
+	
+		SELECT
+		FROM
+		
+ 
+     SELECT
+     *
+     FROM AUCTION
+      WHERE PIECE_NO = 13;
+     
+     SELECT
+     *
+     FROM
+     PIECE
+     WHERE
+     	PIECE_STATUS = 'F';
+    
+    SELECT
+    *
+    FROM
+    PIECE_AUCTION;
+   
+    
+   
+  /* 79 76 77 47 49 50 */
+   
+  	SELECT
+			*
+		FROM
+			PIECE P
+		JOIN
+		    "PIECE_AUCTION" PA
+		ON
+		    P.PIECE_NO = PA.PIECE_NO
+		WHERE
+			PIECE_TYPE = 2
+			AND
+			PIECE_STATUS = 'S'
+		ORDER BY TO_DATE(P.REG_DATE, 'YYYY-MM-DD HH24:MI:SS') ASC;
+		FETCH FIRST 3 ROWS ONLY;
+	
+	
+	SELECT
+    *
+FROM
+    PIECE P
+JOIN
+    "PIECE_AUCTION" PA
+ON
+    P.PIECE_NO = PA.PIECE_NO
+WHERE
+    PIECE_TYPE = 2
+    AND PIECE_STATUS = 'S'
+    AND PA.START_DATE >= SYSDATE -- START_DATE가 오늘 이후
+ORDER BY
+    TO_DATE(P.REG_DATE, 'YYYY-MM-DD HH24:MI:SS') ASC
+FETCH FIRST 3 ROWS ONLY;
+
+
+SELECT
+    *
+FROM
+    PIECE P
+LEFT JOIN
+    ARTIST A
+ON
+    P.MEMBER_NO = A.MEMBER_NO
+WHERE
+		PIECE_STATUS = 'F';
+	
+	
+	SELECT
+    *
+FROM
+    PIECE
+WHERE
+	PIECE_STATUS = 'F';
+
+
+SELECT
+*
+FROM
+ARTIST;
+	
+     
+     SELECT
+	        P.PIECE_NO,
+	        P.PIECE_TITLE,
+	        P.PIECE_RENAME,
+	        P.REG_DATE,
+	        PA.START_DATE
+	    FROM
+	        "PIECE" P
+	    JOIN
+	        "PIECE_AUCTION" PA
+	    ON
+	        P.PIECE_NO = PA.PIECE_NO
+	    WHERE
+	        P.PIECE_STATUS = 'A'
+	        AND
+	        P.PIECE_TYPE = 2
+	    ORDER BY
+	        P.REG_DATE ASC 
+	    FETCH FIRST 3 ROWS ONLY;
 
 SELECT 
 *
 FROM
 MEMBER;
+
 
 
 SELECT 
