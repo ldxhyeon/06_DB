@@ -513,9 +513,42 @@ WHERE
 	
 	
 	SELECT
+		    P.PIECE_NO, 
+		    P.PIECE_TITLE, 
+		    P.PIECE_DETAIL,
+		    P.SIZE_X,
+		    P.SIZE_Y,
+		    P.PIECE_CATEGORY_NO,
+		    P.PIECE_RENAME,
+		    PA.START_DATE,
+		    PA.START_PRICE,
+		    PA.HOPE_PRICE,
+		    PA.END_DATE,
+		    PC.PIECE_CATEGORY_NAME, -- 카테고리명
+		    A.ARTIST_NICKNAME       -- 아티스트 닉네임 추가
+		FROM
+		    "PIECE" P
+		JOIN
+		    "PIECE_AUCTION" PA
+		ON
+		    P.PIECE_NO = PA.PIECE_NO
+		JOIN
+		    "PIECE_CATEGORY" PC
+		ON
+		    P.PIECE_CATEGORY_NO = PC.PIECE_CATEGORY_NO
+		JOIN
+		    "ARTIST" A
+		ON
+		    P.MEMBER_NO = A.MEMBER_NO -- 아티스트와 조인 조건
+		WHERE
+			P.PIECE_NO = 4;
+	
+	
+	
+	SELECT
     *
 FROM
-    PIECE
+    PIECE;
 WHERE
 	PIECE_STATUS = 'F';
 
@@ -545,6 +578,19 @@ ARTIST;
 	    ORDER BY
 	        P.REG_DATE ASC 
 	    FETCH FIRST 3 ROWS ONLY;
+	   
+	      SELECT
+	    	*
+		FROM
+		    PIECE P
+		LEFT JOIN
+		    ARTIST A
+		ON
+		    P.MEMBER_NO = A.MEMBER_NO
+		WHERE
+			PIECE_STATUS = 'F'
+			AND
+			PIECE_TYPE = '2';
 
 SELECT 
 *
