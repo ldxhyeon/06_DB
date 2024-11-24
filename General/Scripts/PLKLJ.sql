@@ -409,6 +409,13 @@ FROM
 REPORT;
 
 
+SELECT
+*
+FROM
+REPORT;
+
+
+
 
 SELECT
     P.PIECE_NO, 
