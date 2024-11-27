@@ -414,40 +414,105 @@ SELECT
 FROM
 REPORT;
 
-
-
+SELECT
+		    P.PIECE_NO,
+		    P.PIECE_TITLE,
+		    P.PIECE_RENAME,
+		    P.REG_DATE,
+		    PA.START_DATE,
+        PA.END_DATE
+		FROM
+		    "PIECE" P
+		JOIN
+		    "PIECE_AUCTION" PA
+		ON
+		    P.PIECE_NO = PA.PIECE_NO
+		WHERE
+		    P.PIECE_STATUS = 'A'
+		    AND P.PIECE_TYPE = 2
+		    AND PA.START_DATE >= SYSDATE
+		ORDER BY
+		    PA.START_DATE ASC 
+		FETCH FIRST 3 ROWS ONLY;
 
 SELECT
-    P.PIECE_NO, 
-    P.PIECE_TITLE, 
-    P.PIECE_DETAIL,
-    P.SIZE_X,
-    P.SIZE_Y,
-    P.PIECE_CATEGORY_NO,
-    P.PIECE_RENAME,
-    PA.START_DATE,
-    PA.START_PRICE,
-    PA.HOPE_PRICE,
-    PA.END_DATE,
-    PC.PIECE_CATEGORY_NAME, -- 카테고리명
-    A.ARTIST_NICKNAME       -- 아티스트 닉네임 추가
+		    P.PIECE_NO,
+		    P.PIECE_TITLE,
+		    P.PIECE_RENAME,
+		    P.REG_DATE,
+		    PA.START_DATE
+		FROM
+		    "PIECE" P
+		JOIN
+		    "PIECE_AUCTION" PA
+		ON
+		    P.PIECE_NO = PA.PIECE_NO
+		WHERE
+		    P.PIECE_STATUS = 'A'
+		    AND P.PIECE_TYPE = 2
+		    AND PA.START_DATE >= SYSDATE
+		ORDER BY
+		    PA.START_DATE ASC 
+		FETCH FIRST 3 ROWS ONLY;
+	
+	
+SELECT
+    *
 FROM
-    "PIECE" P
+    PIECE P
 JOIN
-    "PIECE_AUCTION" PA
+    PIECE_AUCTION PA
 ON
     P.PIECE_NO = PA.PIECE_NO
-JOIN
-    "PIECE_CATEGORY" PC
-ON
-    P.PIECE_CATEGORY_NO = PC.PIECE_CATEGORY_NO
-JOIN
-    "ARTIST" A
-ON
-    P.MEMBER_NO = A.MEMBER_NO -- 아티스트와 조인 조건
 WHERE
-    P.PIECE_NO = 51;
-   
+    PIECE_TYPE = 2
+    AND PIECE_STATUS = 'S'
+    AND TRUNC(PA.START_DATE) IN (TRUNC(SYSDATE), TRUNC(SYSDATE - 1)) -- START_DATE가 오늘 또는 어제
+    AND TRUNC(PA.END_DATE) IN (TRUNC(SYSDATE), TRUNC(SYSDATE - 1))   -- END_DATE가 오늘 또는 어제
+ORDER BY
+    PA.START_DATE ASC -- START_DATE 기준 정렬
+FETCH FIRST 3 ROWS ONLY;
+
+
+
+
+
+
+
+
+	
+	
+	SELECT
+		    *
+		FROM
+		    PIECE P
+		JOIN
+		    PIECE_AUCTION PA
+		ON
+		    P.PIECE_NO = PA.PIECE_NO
+		WHERE
+		    PIECE_TYPE = 2
+		    AND PIECE_STATUS = 'S';
+		   
+		   
+		   
+   	SELECT
+		    *
+		FROM
+		    PIECE P
+		JOIN
+		    PIECE_AUCTION PA
+		ON
+		    P.PIECE_NO = PA.PIECE_NO
+		WHERE
+		    PIECE_TYPE = 2
+		    AND PIECE_STATUS = 'A';
+		   
+		   
+
+
+		   
+		   
    
       SELECT MAX(END_PRICE)
       FROM AUCTION
@@ -464,8 +529,6 @@ WHERE
 		FROM AUCTION
 		WHERE PIECE_NO = 12;
 	
-		SELECT
-		FROM
 		
  
      SELECT
@@ -476,14 +539,19 @@ WHERE
      SELECT
      *
      FROM
-     PIECE
+     PIECE_AUCTION 
      WHERE
-     	PIECE_STATUS = 'F';
+     	PIECE_NO = 77;
     
     SELECT
     *
     FROM
-    PIECE_AUCTION;
+    PIECE
+    WHERE 
+    PIECE_NO = 114;
+   
+   
+   
    
     
    
