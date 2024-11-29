@@ -223,6 +223,11 @@ PIECE_AUCTION;
 	    AND P.PIECE_TYPE = 2
 	    AND PA.START_DATE = TO_DATE(TO_CHAR(SYSDATE + 1, 'YYYYMMDD'), 'YYYYMMDD')
 	    AND PA.START_DATE + (10/24) > SYSDATE;
+	   
+	   
+	   SELECT MEMBER_NO
+		FROM WISH
+		WHERE PIECE_NO = 144;
 
 		   
 		    SELECT
@@ -242,6 +247,25 @@ PIECE_AUCTION;
     		    P.PIECE_STATUS = 'S'
     		    AND P.PIECE_TYPE = 2
     		   	AND PA.START_DATE = TO_DATE(TO_CHAR(SYSDATE - 10/24 , 'YYYYMMDD'), 'YYYYMMDD');
+    		   
+    		   
+		     SELECT
+            P.PIECE_NO,
+            P.PIECE_TITLE,
+            P.PIECE_RENAME,
+            P.REG_DATE,
+            PA.START_DATE,
+            PA.END_DATE
+        FROM
+            PIECE_AUCTION PA
+        JOIN
+            PIECE P
+        ON
+            PA.PIECE_NO = P.PIECE_NO
+        WHERE
+            P.PIECE_STATUS = 'A'
+            AND P.PIECE_TYPE = 2
+            AND PA.START_DATE = TO_DATE(TO_CHAR(SYSDATE + 1 - 10/24, 'YYYYMMDD'), 'YYYYMMDD');
     		   
     		   
    SELECT PIECE_NO
