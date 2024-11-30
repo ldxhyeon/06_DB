@@ -290,7 +290,7 @@ JOIN
 ON
     PA.PIECE_NO = P.PIECE_NO
 WHERE
-    P.PIECE_STATUS = 'A'
+    P.PIECE_STA`TUS = 'A'
     AND P.PIECE_TYPE = 2;
    
    
@@ -312,6 +312,44 @@ WHERE
     AND P.PIECE_TYPE = 2
     AND TRUNC(PA.START_DATE) = TRUNC(SYSDATE) 
     AND PA.START_DATE + INTERVAL '10' HOUR > SYSDATE; 
+   
+   
+    SELECT
+            P.PIECE_NO,
+            P.PIECE_TITLE,
+            P.PIECE_RENAME,
+            P.REG_DATE,
+            PA.START_DATE,
+            PA.END_DATE
+        FROM
+            PIECE_AUCTION PA
+        JOIN
+            PIECE P
+        ON
+            PA.PIECE_NO = P.PIECE_NO
+        WHERE
+            P.PIECE_STATUS = 'A'
+            AND P.PIECE_TYPE = 2
+            AND PA.START_DATE = TO_DATE(TO_CHAR(SYSDATE + 3 - 10/24, 'YYYYMMDD'), 'YYYYMMDD');
+           
+           
+           SELECT
+    			P.PIECE_NO,
+    		    P.PIECE_TITLE,
+    		    P.PIECE_RENAME,
+    		    P.REG_DATE,
+    		    PA.START_DATE,
+    		    PA.END_DATE
+    		FROM
+    		    PIECE_AUCTION PA
+    		JOIN
+    		    PIECE P
+    		ON
+    		    PA.PIECE_NO = P.PIECE_NO
+    		WHERE
+    		    P.PIECE_STATUS = 'S'
+    		    AND P.PIECE_TYPE = 2
+    		   	AND PA.START_DATE = TO_DATE(TO_CHAR(SYSDATE -1 - 10/24 , 'YYYYMMDD'), 'YYYYMMDD');
 
    
    SELECT
