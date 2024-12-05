@@ -415,6 +415,85 @@ WHERE
     		   	AND PA.START_DATE = TO_DATE(TO_CHAR(SYSDATE - 10/24 , 'YYYYMMDD'), 'YYYYMMDD');
 
 	
+    		   
+    		   SELECT 
+    		   *
+		FROM PIECE_AUCTION
+		WHERE TRUNC(START_DATE) = TRUNC(CURRENT_DATE + 0);
+	
+	
+SELECT PIECE_NO
+		FROM PIECE_AUCTION
+		WHERE TRUNC(START_DATE) = TRUNC(CURRENT_DATE + 1);
+	
+	
+	    SELECT
+            P.PIECE_NO,
+            P.PIECE_TITLE,
+            P.PIECE_RENAME,
+            P.REG_DATE,
+            PA.START_DATE,
+            PA.END_DATE
+        FROM
+            PIECE_AUCTION PA
+        JOIN
+            PIECE P
+        ON
+            PA.PIECE_NO = P.PIECE_NO
+        WHERE
+            P.PIECE_STATUS = 'A'
+            AND P.PIECE_TYPE = 2
+            AND PA.START_DATE >= TO_DATE(TO_CHAR(SYSDATE + 1 - 10/24, 'YYYYMMDD'), 'YYYYMMDD');
+           
+           
+ SELECT *
+FROM (
+    SELECT
+        P.PIECE_NO,
+        P.PIECE_TITLE,
+        P.PIECE_RENAME,
+        P.REG_DATE,
+        PA.START_DATE,
+        PA.END_DATE
+    FROM
+        PIECE_AUCTION PA
+    JOIN
+        PIECE P
+    ON
+        PA.PIECE_NO = P.PIECE_NO
+    WHERE
+        P.PIECE_STATUS = 'A'
+        AND P.PIECE_TYPE = 2
+        AND PA.START_DATE >= TO_DATE(TO_CHAR(SYSDATE + 4 - 10/24, 'YYYYMMDD'), 'YYYYMMDD') 
+    ORDER BY
+        PA.START_DATE ASC 
+)
+WHERE ROWNUM <= 3;
+
+           
+           
+           SELECT
+           *
+           FROM
+           "PIECE" B
+           JOIN
+           	"PIECE_AUCTION" A
+           ON B.PIECE_NO = A.PIECE_NO
+           WHERE
+          B.PIECE_TYPE = 2
+           AND
+           B.PIECE_STATUS = 'A';
+          
+          
+          SELECT
+           *
+           FROM
+           "PIECE"
+           WHERE
+          PIECE_TYPE = 2
+           AND
+          PIECE_STATUS = 'A';
+          
 	
 	DELETE
 	FROM
@@ -427,11 +506,43 @@ SELECT
 FROM
 MEMBER;
 
+COMMIT;
+ROLLBACK;
+
+SELECT
+*
+FROM
+PIECE
+ORDER BY
+PIECE_NO DESC;
+
+SELECT
+*
+FROM
+PIECE_SELL
+ORDER BY
+PIECE_NO DESC;
+
+UPDATE PIECE
+SET PIECE_RENAME = REPLACE(PIECE_RENAME, '.jpg', '.png')
+WHERE PIECE_RENAME LIKE '%.jpg%'
+AND PIECE_NO > 287;
+
+
+INSERT INTO PIECE VALUES(SEQ_PIECE_NO.NEXTVAL, 13, 'https://firebasestorage.googleapis.com/v0/b/odagirijoe-3e3a4.firebasestorage.app/o/piece%2Fpiece' || SEQ_PIECE_NO.CURRVAL || '.jpg?alt=media', '무제', '설명없음', 25, 20, TO_DATE('20241207', 'YYYYMMDD'), 2, 'N', 1);
+INSERT INTO PIECE_SELL VALUES(SEQ_PIECE_NO.CURRVAL, 150000);
+
 SELECT
 *
 FROM
 NOTICE;
 	
+UPDATE
+PIECE
+SET
+PIECE_TYPE = 1
+WHERE
+PIECE_NO > 264;
 
 COMMIT;
 
