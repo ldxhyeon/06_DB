@@ -227,6 +227,14 @@ SELECT
 	        BL.MEMBER_NO = 22
 	        AND B.BOARD_CODE = 2
 	        AND B.BOARD_DEL_FL = 'N';
+	       
+	       
+	       SELECT 
+	       *
+	       FROM
+	       MEMBER;
+	       
+	      
 
 
 
