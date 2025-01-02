@@ -350,6 +350,13 @@ WHERE
     		    P.PIECE_STATUS = 'S'
     		    AND P.PIECE_TYPE = 2
     		   	AND PA.START_DATE = TO_DATE(TO_CHAR(SYSDATE +4 - 10/24 , 'YYYYMMDD'), 'YYYYMMDD');
+    		   
+    		   
+    		   SELECT
+    		   *
+    		   FROM
+    		   PIECE_AUCTION ;
+    		   
 
    
    SELECT
