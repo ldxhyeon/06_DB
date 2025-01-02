@@ -127,7 +127,11 @@
 				}
 			]
 		},
+<<<<<<< HEAD
+		"oracle_thin-19354962194-9cf77267de3dcfa": {
+=======
 		"oracle_thin-1932006b7ae-2c0054e7dab2c0c4": {
+>>>>>>> 9ea2f9eb3ad4ff309ac7252e8040e86d7c4ca52a
 			"provider": "oracle",
 			"driver": "oracle_thin",
 			"name": "PLKLJ",
@@ -138,7 +142,11 @@
 				"database": "ORCL",
 				"url": "jdbc:oracle:thin:@khj-1.xyz:10000:XE",
 				"configurationType": "URL",
+<<<<<<< HEAD
+				"home": "C:\\app\\kwang\\product\\18.0.0\\dbhomeXE",
+=======
 				"home": "C:\\app\\ldh\\product\\18.0.0\\dbhomeXE",
+>>>>>>> 9ea2f9eb3ad4ff309ac7252e8040e86d7c4ca52a
 				"type": "dev",
 				"closeIdleConnection": true,
 				"provider-properties": {
