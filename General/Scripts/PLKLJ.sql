@@ -356,6 +356,8 @@ WHERE
     		   *
     		   FROM
     		   PIECE_AUCTION ;
+    		  
+    		  
     		   
 
    

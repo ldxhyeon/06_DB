@@ -1,6 +1,4 @@
 
-
-
 -------------- 세미 프로젝트 DB -------------------------
 
 
@@ -17,6 +15,5 @@ ALTER USER REPET DEFAULT TABLESPACE USERS QUOTA 500M ON USERS;
 CREATE SEQUENCE SEQ_MEMBER_NO NOCACHE;
 
 DROP SEQUENCE SEQ_MEMBER_NO;
-
 
 
