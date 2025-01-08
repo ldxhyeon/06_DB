@@ -538,13 +538,33 @@ WHERE PIECE_RENAME LIKE '%.jpg%'
 AND PIECE_NO > 287;
 
 
-INSERT INTO PIECE VALUES(SEQ_PIECE_NO.NEXTVAL, 13, 'https://firebasestorage.googleapis.com/v0/b/odagirijoe-3e3a4.firebasestorage.app/o/piece%2Fpiece' || SEQ_PIECE_NO.CURRVAL || '.jpg?alt=media', '무제', '설명없음', 25, 20, TO_DATE('20241207', 'YYYYMMDD'), 2, 'N', 1);
-INSERT INTO PIECE_SELL VALUES(SEQ_PIECE_NO.CURRVAL, 150000);
+INSERT INTO PIECE VALUES(SEQ_PIECE_NO.NEXTVAL, 13, 'https://firebasestorage.googleapis.com/v0/b/odagirijoe-3e3a4.firebasestorage.app/o/piece%2Fpiece' || SEQ_PIECE_NO.CURRVAL || '.jpg?alt=media', '무제', '설명없음', 25, 20, TO_DATE('20250107', 'YYYYMMDD'), 2, 'A', 1);
+
+INSERT INTO PIECE_AUCTION (PIECE_NO, START_DATE, END_DATE, START_PRICE, HOPE_PRICE) 
+VALUES (SEQ_PIECE_NO.CURRVAL, TO_DATE('2025-01-12 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 
+        TO_DATE('2025-01-13 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1000000, 5000000);
+
+
+ROLLBACK;
 
 SELECT
 *
 FROM
-NOTICE;
+PIECE_AUCTION
+WHERE
+PIECE_NO =8;
+
+
+
+
+SELECT
+*
+FROM
+PIECE
+WHERE
+PIECE_STATUS = 'A'
+AND
+PIECE_TYPE = 2;
 	
 UPDATE
 PIECE
@@ -552,6 +572,12 @@ SET
 PIECE_TYPE = 1
 WHERE
 PIECE_NO > 264;
+
+
+
+/* 예정경매 샘플 이미지 등록 */
+INSERT INTO PIECE VALUES(SEQ_PIECE_NO.NEXTVAL, 13, 'https://firebasestorage.googleapis.com/v0/b/odagirijoe-3e3a4.firebasestorage.app/o/piece%2Fpiece' || SEQ_PIECE_NO.CURRVAL || '.jpg?alt=media', '무제', '설명없음', 25, 20, TO_DATE('20241207', 'YYYYMMDD'), 2, 'A', 1);
+INSERT INTO PIECE VALUES(SEQ_PIECE_NO.CURRVAL, 150000);
 
 COMMIT;
 
