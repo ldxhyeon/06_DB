@@ -556,6 +556,34 @@ PIECE_NO =8;
 
 
 
+SELECT MAX(AUCTION_NO) FROM AUCTION;
+
+ALTER SEQUENCE SEQ_AUCTION_NO RESTART START WITH 461;
+
+
+COMMIT;
+
+
+SELECT
+    			P.PIECE_NO,
+    		    P.PIECE_TITLE,
+    		    P.PIECE_RENAME,
+    		    P.REG_DATE,
+    		    PA.START_DATE,
+    		    PA.END_DATE
+    		FROM
+    		    PIECE_AUCTION PA
+    		JOIN
+    		    PIECE P
+    		ON
+    		    PA.PIECE_NO = P.PIECE_NO
+    		WHERE
+    		    P.PIECE_STATUS = 'S'
+    		    AND P.PIECE_TYPE = 2
+    		   	AND PA.START_DATE = TO_DATE(TO_CHAR(SYSDATE - 10/24 , 'YYYYMMDD'), 'YYYYMMDD');
+
+
+
 
 SELECT
 *
