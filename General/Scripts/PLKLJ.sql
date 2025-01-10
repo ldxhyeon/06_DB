@@ -538,11 +538,12 @@ WHERE PIECE_RENAME LIKE '%.jpg%'
 AND PIECE_NO > 287;
 
 
-INSERT INTO PIECE VALUES(SEQ_PIECE_NO.NEXTVAL, 13, 'https://firebasestorage.googleapis.com/v0/b/odagirijoe-3e3a4.firebasestorage.app/o/piece%2Fpiece' || SEQ_PIECE_NO.CURRVAL || '.jpg?alt=media', '무제', '설명없음', 25, 20, TO_DATE('20250107', 'YYYYMMDD'), 2, 'A', 1);
+ALTER SEQUENCE SEQ_PIECE_NO RESTART START WITH 354;
 
+INSERT INTO PIECE VALUES(SEQ_PIECE_NO.NEXTVAL, 13, 'https://firebasestorage.googleapis.com/v0/b/odagirijoe-3e3a4.firebasestorage.app/o/piece%2Fpiece' || SEQ_PIECE_NO.CURRVAL || '.jpg?alt=media', '무제', '설명없음', 25, 20, TO_DATE('20250108', 'YYYYMMDD'), 2, 'A', 1);
 INSERT INTO PIECE_AUCTION (PIECE_NO, START_DATE, END_DATE, START_PRICE, HOPE_PRICE) 
-VALUES (SEQ_PIECE_NO.CURRVAL, TO_DATE('2025-01-12 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 
-        TO_DATE('2025-01-13 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1000000, 5000000);
+VALUES (SEQ_PIECE_NO.CURRVAL, TO_DATE('2025-01-29 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 
+        TO_DATE('2025-01-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1000000, 5000000);
 
 
 ROLLBACK;
@@ -565,7 +566,7 @@ COMMIT;
 
 
 SELECT
-    			P.PIECE_NO,
+    				P.PIECE_NO,
     		    P.PIECE_TITLE,
     		    P.PIECE_RENAME,
     		    P.REG_DATE,
@@ -578,9 +579,9 @@ SELECT
     		ON
     		    PA.PIECE_NO = P.PIECE_NO
     		WHERE
-    		    P.PIECE_STATUS = 'S'
+    		    P.PIECE_STATUS = 'A'
     		    AND P.PIECE_TYPE = 2
-    		   	AND PA.START_DATE = TO_DATE(TO_CHAR(SYSDATE - 10/24 , 'YYYYMMDD'), 'YYYYMMDD');
+    		   	AND PA.START_DATE = TO_DATE(TO_CHAR(SYSDATE - 10/24 + 1, 'YYYYMMDD'), 'YYYYMMDD');
 
 
 
