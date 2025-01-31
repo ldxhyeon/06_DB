@@ -538,12 +538,43 @@ WHERE PIECE_RENAME LIKE '%.jpg%'
 AND PIECE_NO > 287;
 
 
-ALTER SEQUENCE SEQ_PIECE_NO RESTART START WITH 354;
+ALTER SEQUENCE SEQ_PIECE_NO RESTART START WITH 372;
 
-INSERT INTO PIECE VALUES(SEQ_PIECE_NO.NEXTVAL, 13, 'https://firebasestorage.googleapis.com/v0/b/odagirijoe-3e3a4.firebasestorage.app/o/piece%2Fpiece' || SEQ_PIECE_NO.CURRVAL || '.jpg?alt=media', '무제', '설명없음', 25, 20, TO_DATE('20250108', 'YYYYMMDD'), 2, 'A', 1);
+/* 경매 등록 */
+INSERT INTO PIECE VALUES(SEQ_PIECE_NO.NEXTVAL, 13, 'https://firebasestorage.googleapis.com/v0/b/odagirijoe-3e3a4.firebasestorage.app/o/piece%2Fpiece' || SEQ_PIECE_NO.CURRVAL || '.jpg?alt=media', '무제', '설명없음', 25, 20, TO_DATE('20250131', 'YYYYMMDD'), 2, 'A', 1);
 INSERT INTO PIECE_AUCTION (PIECE_NO, START_DATE, END_DATE, START_PRICE, HOPE_PRICE) 
-VALUES (SEQ_PIECE_NO.CURRVAL, TO_DATE('2025-01-29 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 
-        TO_DATE('2025-01-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1000000, 5000000);
+VALUES (SEQ_PIECE_NO.CURRVAL, TO_DATE('2025-02-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 
+        TO_DATE('2025-02-02 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1000000, 5000000);
+     
+/* 2월부터 말일까지 3개씩 생성 */
+BEGIN
+    FOR day IN 1..28 LOOP  -- 날짜를 1일부터 28일까지 반복
+        FOR item IN 1..3 LOOP  -- 각 날짜에 3개의 데이터 생성
+            -- Insert into PIECE
+            INSERT INTO PIECE 
+            VALUES (SEQ_PIECE_NO.NEXTVAL, 13, 
+                    'https://firebasestorage.googleapis.com/v0/b/odagirijoe-3e3a4.firebasestorage.app/o/piece%2Fpiece' || SEQ_PIECE_NO.CURRVAL || '.jpg?alt=media', 
+                    '무제', '설명없음', 25, 20, TO_DATE('20250131', 'YYYYMMDD'), 2, 'A', 1);
+            
+            -- 종료 날짜 처리: 2월 28일을 초과하지 않도록 설정
+            INSERT INTO PIECE_AUCTION (PIECE_NO, START_DATE, END_DATE, START_PRICE, HOPE_PRICE)
+            VALUES (
+                SEQ_PIECE_NO.CURRVAL, 
+                TO_DATE('2025-02-' || LPAD(day, 2, '0') || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                CASE 
+                    WHEN day = 28 THEN TO_DATE('2025-02-28 23:59:59', 'YYYY-MM-DD HH24:MI:SS')  -- 2월 28일의 경우, 종료 날짜를 28일로 설정
+                    ELSE TO_DATE('2025-02-' || LPAD(day + 1, 2, '0') || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS')  -- 그 외는 다음 날
+                END, 
+                1000000, 5000000);
+        END LOOP;
+    END LOOP;
+END;
+/
+
+/
+
+/
+
 
 
 ROLLBACK;
