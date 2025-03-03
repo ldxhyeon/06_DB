@@ -1,7 +1,7 @@
 {
 	"folders": {},
 	"connections": {
-		"oracle_thin-1943be88bc5-921641a820054fb": {
+		"oracle_thin-195476cae89-13ce7705b88a1606": {
 			"provider": "oracle",
 			"driver": "oracle_thin",
 			"name": "PLKLJ",
@@ -10,7 +10,7 @@
 				"host": "localhost",
 				"port": "1521",
 				"database": "ORCL",
-				"url": "jdbc:oracle:thin:@khj-1.xyz:10000:XE",
+				"url": "jdbc:oracle:thin:@dh_high?TNS_ADMIN\u003dC:/Wallet_db/Wallet_dh",
 				"configurationType": "URL",
 				"home": "C:\\app\\ldh\\product\\18.0.0\\dbhomeXE",
 				"type": "dev",
@@ -23,7 +23,18 @@
 				},
 				"provider-properties": {
 					"@dbeaver-connection-type@": "CUSTOM",
-					"@dbeaver-sid-service@": "SERVICE"
+					"@dbeaver-sid-service@": "SERVICE",
+					"show-only-one-schema@": "false",
+					"@dbeaver-check-schema-content@": "false",
+					"@dbeaver-always-show-dba@": "false",
+					"@dbeaver-always-use-dba-views@": "false",
+					"@dbeaver-meta-use-sys-schema@": "false",
+					"@dbeaver-meta-use-simple-constraints@": "false",
+					"@dbeaver-use-rule-hint@": "false",
+					"@dbeaver-use-meta-optimizer@": "true",
+					"@dbeaver-meta-use-alternative-table-query@": "false",
+					"oracle.meta-search-in-synonyms": "false",
+					"oracle.show-date-as-date": "false"
 				},
 				"auth-model": "oracle_native"
 			},
@@ -31,35 +42,7 @@
 				{
 					"type": "org.jkiss.dbeaver.ext.oracle.model.OracleSchema",
 					"enabled": true,
-					"include": ["KH_PLKLJ"]
-				}
-			]
-		},
-		"oracle_thin-1943bec010f-3d5f54b439aac0b2": {
-			"provider": "oracle",
-			"driver": "oracle_thin",
-			"name": "REPET",
-			"save-password": true,
-			"configuration": {
-				"host": "localhost",
-				"port": "1521",
-				"database": "ORCL",
-				"url": "jdbc:oracle:thin:@khj-1.xyz:10000:XE",
-				"configurationType": "URL",
-				"home": "C:\\app\\ldh\\product\\18.0.0\\dbhomeXE",
-				"type": "dev",
-				"closeIdleConnection": true,
-				"provider-properties": {
-					"@dbeaver-connection-type@": "CUSTOM",
-					"@dbeaver-sid-service@": "SERVICE"
-				},
-				"auth-model": "oracle_native"
-			},
-			"filters": [
-				{
-					"type": "org.jkiss.dbeaver.ext.oracle.model.OracleSchema",
-					"enabled": true,
-					"include": ["REPET"]
+					"include": ["ADMIN","KH_PLKLJ"]
 				}
 			]
 		}

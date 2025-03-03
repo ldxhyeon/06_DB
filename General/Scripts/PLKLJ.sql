@@ -473,7 +473,7 @@ FROM (
     WHERE
         P.PIECE_STATUS = 'A'
         AND P.PIECE_TYPE = 2
-        AND PA.START_DATE >= TO_DATE(TO_CHAR(SYSDATE + 4 - 10/24, 'YYYYMMDD'), 'YYYYMMDD') 
+        AND PA.START_DATE >= TO_DATE(TO_CHAR(SYSDATE + 1 - 10/24, 'YYYYMMDD'), 'YYYYMMDD') 
     ORDER BY
         PA.START_DATE ASC 
 )
@@ -501,9 +501,31 @@ WHERE ROWNUM <= 3;
            WHERE
           PIECE_TYPE = 2
            AND
-          PIECE_STATUS = 'A';
+          PIECE_STATUS = 'S';
           
 	
+         
+         SELECT
+    				P.PIECE_NO,
+    		    P.PIECE_TITLE,
+    		    P.PIECE_RENAME,
+    		    P.REG_DATE,
+    		    PA.START_DATE,
+    		    PA.END_DATE
+    		FROM
+    		    PIECE_AUCTION PA
+    		JOIN
+    		    PIECE P
+    		ON
+    		    PA.PIECE_NO = P.PIECE_NO
+    		WHERE
+    		    P.PIECE_STATUS = 'S'
+    		    AND P.PIECE_TYPE = 2
+    		   	AND PA.START_DATE = TO_DATE(TO_CHAR(SYSDATE - 10/24 , 'YYYYMMDD'), 'YYYYMMDD');
+    		   
+    		   
+
+         
 	DELETE
 	FROM
 	PIECE
@@ -532,13 +554,14 @@ PIECE_SELL
 ORDER BY
 PIECE_NO DESC;
 
+
 UPDATE PIECE
 SET PIECE_RENAME = REPLACE(PIECE_RENAME, '.jpg', '.png')
 WHERE PIECE_RENAME LIKE '%.jpg%'
 AND PIECE_NO > 287;
 
 
-ALTER SEQUENCE SEQ_PIECE_NO RESTART START WITH 372;
+ALTER SEQUENCE SEQ_PIECE_NO RESTART START WITH 318;
 
 /* 경매 등록 */
 INSERT INTO PIECE VALUES(SEQ_PIECE_NO.NEXTVAL, 13, 'https://firebasestorage.googleapis.com/v0/b/odagirijoe-3e3a4.firebasestorage.app/o/piece%2Fpiece' || SEQ_PIECE_NO.CURRVAL || '.jpg?alt=media', '무제', '설명없음', 25, 20, TO_DATE('20250131', 'YYYYMMDD'), 2, 'A', 1);
@@ -546,6 +569,7 @@ INSERT INTO PIECE_AUCTION (PIECE_NO, START_DATE, END_DATE, START_PRICE, HOPE_PRI
 VALUES (SEQ_PIECE_NO.CURRVAL, TO_DATE('2025-02-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 
         TO_DATE('2025-02-02 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1000000, 5000000);
      
+       
 /* 2월부터 말일까지 3개씩 생성 */
 BEGIN
     FOR day IN 1..28 LOOP  -- 날짜를 1일부터 28일까지 반복
@@ -569,12 +593,30 @@ BEGIN
         END LOOP;
     END LOOP;
 END;
-/
 
-/
-
-/
-
+/* 3월부터 말일까지 */
+BEGIN
+    FOR day IN 3..31 LOOP  -- 3월 3일부터 31일까지 반복
+        FOR item IN 1..3 LOOP  -- 각 날짜에 3개의 데이터 생성
+            -- Insert into PIECE
+            INSERT INTO PIECE 
+            VALUES (SEQ_PIECE_NO.NEXTVAL, 13, 
+                    'https://firebasestorage.googleapis.com/v0/b/odagirijoe-3e3a4.firebasestorage.app/o/piece%2Fpiece' || SEQ_PIECE_NO.CURRVAL || '.jpg?alt=media', 
+                    '무제', '설명없음', 25, 20, TO_DATE('20250303', 'YYYYMMDD'), 2, 'A', 1);
+            
+            -- 종료 날짜 처리: 3월 31일을 초과하지 않도록 설정
+            INSERT INTO PIECE_AUCTION (PIECE_NO, START_DATE, END_DATE, START_PRICE, HOPE_PRICE)
+            VALUES (
+                SEQ_PIECE_NO.CURRVAL, 
+                TO_DATE('2025-03-' || LPAD(day, 2, '0') || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                CASE 
+                    WHEN day = 31 THEN TO_DATE('2025-03-31 23:59:59', 'YYYY-MM-DD HH24:MI:SS')  -- 3월 31일의 경우, 종료 날짜를 31일로 설정
+                    ELSE TO_DATE('2025-03-' || LPAD(day + 1, 2, '0') || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS')  -- 그 외는 다음 날
+                END, 
+                1000000, 5000000);
+        END LOOP;
+    END LOOP;
+END;
 
 
 ROLLBACK;
@@ -588,9 +630,8 @@ PIECE_NO =8;
 
 
 
-SELECT MAX(AUCTION_NO) FROM AUCTION;
 
-ALTER SEQUENCE SEQ_AUCTION_NO RESTART START WITH 461;
+ALTER SEQUENCE SEQ_AUCTION_NO RESTART START WITH 318;
 
 
 COMMIT;
